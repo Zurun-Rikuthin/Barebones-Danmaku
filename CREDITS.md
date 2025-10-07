@@ -12,6 +12,8 @@ This project includes assets created by various artists and developers. Below is
 
 - **"Sparen's Danmaku Design Studio - Danmaku Design Guides"** by *Andrew Fan/Sparen* ([GitHub](https://sparen.github.io/ph3tutorials/danmakudesign.html)).
 
+- **"Set up Logging with Log4j2 in Java and IntelliJ IDEA"** by *Brandon Jones* ([YouTube](https://www.youtube.com/watch?v=T_lWpqOWaE0))
+
 ---
 
 ## 🎨 Art & Graphics  
@@ -113,4 +115,4 @@ Regarding the *overall* project/game, **all rights are reserved**.
 
 ---
 
-*Last Updated: [2025-10-06 19:38 UTC-04:00]*
+*Last Updated: [2025-10-07 11:35 UTC-04:00]*

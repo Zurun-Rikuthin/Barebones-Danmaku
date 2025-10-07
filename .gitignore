@@ -1,0 +1,85 @@
+### Build Artifacts ###
+# Compiled class files and generated libraries
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Generated build directories
+/target/
+/bin/
+/out/
+
+# EXCLUSIONS: Keep Maven Javadocs for documentation purposes
+!/target/site/
+!/target/*-javadoc.jar
+
+# Log files and application data
+*.log
+/logs/
+/log/
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+### Maven Specific ###
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# Maven wrapper binary (keep the script, ignore the jar)
+.mvn/wrapper/maven-wrapper.jar
+
+### Configuration and Environment ###
+# Local environment and secret files
+*.properties
+*.yaml
+*.yml
+
+# Generic environment variable files often used locally (e.g., with Docker)
+*.env
+.env
+config.local
+secrets.*
+
+
+### IDE and Editor Artifacts ###
+# Eclipse & JDT
+.project
+.classpath
+.settings/
+.m2/
+
+# Visual Studio Code
+.vscode/*
+# DO NOT ignore settings, tasks, launch, or extensions config files!
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# VSCode local history and extensions
+.history/
+*.vsix
+.ionide
+
+### OS and Editor Artifacts (Generic) ###
+# macOS metadata files
+.DS_Store
+# Windows thumbnail cache files
+Thumbs.db
+# Generic temporary files created by various editors
+*~
+#*#
+*.swp
+*.swo

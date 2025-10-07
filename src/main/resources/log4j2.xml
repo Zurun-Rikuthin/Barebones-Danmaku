@@ -1,24 +1,45 @@
-<Configuration status="info">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Added some minor notes to this as it's my first time working with this Log4j2. -->
+
+<Configuration status="warn">
 	<Properties>
-		<Property name="layout">%d [%t] %-5level %logger - %m%n</Property>
+		<Property name="CONSOLE_LAYOUT">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+		<Property name="FILE_LAYOUT">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</Property>
 	</Properties>
+	
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="${layout}" />
+			<PatternLayout pattern="${CONSOLE_LAYOUT}" />
 		</Console>
-		<File name="LogFile" name="app.log">
-			<PatternLayout>
-				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-			</PatternLayout>
-		</File>
+		
+		<!-- Write the logs to a file for later access/troubleshooting. Once the file size reaches 10MB, compress it then create a new log file. -->
+		<RollingFile name="RollingFile" fileName="logs/log4j2/app.log" filePattern="logs/log4j2/app-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout pattern="${FILE_LAYOUT}" />
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
 	</Appenders>
+	
 	<Loggers>
-		<Logger name="vehicles" level="info" additivity="false">
-			<AppenderRef ref="LogFile" />
+		<!-- The root logger is the default/parent logger for the entire app. -->
+		<Root level="INFO">
+			<!--
+				Denotes WHERE the log messages that pass the filter are sent. 
+				In this case, using the root logger sends it both to the console for immediate viewing and to a file for records.
+			-->
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+		
+		<!-- Temp example loggers (will expand/fix later as needed as I refactor)
+		<Logger name="com.rikuthin.graphics" level="DEBUG" additivity="true"></Logger>
+		
+		<Logger name="org.apache.logging" level="WARN" additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
-		<Root level="error">
-			<AppenderRef ref="Console" />
-		</Root>
+		-->
 	</Loggers>
 </Configuration>

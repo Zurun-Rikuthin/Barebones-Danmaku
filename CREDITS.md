@@ -6,6 +6,8 @@ This project includes assets created by various artists and developers. Below is
 
 ## 📚 Tutorials & Learning Resources  
 
+- **"A Guide to Rolling File Appenders"** by *baeldung* ([Baeldung](https://www.baeldung.com/java-logging-rolling-file-appenders))
+
 - **"Collision Detection (An Overview) (UPDATED!)"** by *MacroPixel* ([YouTube](https://www.youtube.com/watch?v=oOEnWQZIePs)).
 
 - **"Bounding Box Collision Detection"** by *Teklectic* ([Youtube](https://www.youtube.com/watch?v=8b_reDI7iPM)).
@@ -115,4 +117,4 @@ Regarding the *overall* project/game, **all rights are reserved**.
 
 ---
 
-*Last Updated: [2025-10-07 11:35 UTC-04:00]*
+*Last Updated: [2025-10-07 14:49 UTC-04:00]*

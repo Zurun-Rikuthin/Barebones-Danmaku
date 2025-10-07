@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import static com.rikuthin.App.FRAME_RATE_MS;
 import com.rikuthin.data.AnimationTemplateRepository;
 import com.rikuthin.graphics.animations.AnimationFrame;
+import com.rikuthin.graphics.animations.AnimationTemplate;
 import com.rikuthin.managers.ImageManager;
 
 /**

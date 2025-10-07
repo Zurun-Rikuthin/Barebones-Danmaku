@@ -1,6 +1,5 @@
-package com.rikuthin.managers;
+package com.rikuthin.loaders;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,18 +10,21 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 /**
- * The ImageManager class manages the loading and processing of images.
+ * The {@code ImageLoader} class is a ctility class responsible for loading
+ * image resources from files or the application's classpath.
  */
-public class ImageManager {
+public class ImageLoader {
 
+    // ----- CONSTRUCTORS -----
     /**
      * Private constructor to prevent instantiation.
      */
-    private ImageManager() {
+    private ImageLoader() {
     }
 
+    // ----- BUSINESS LOGIC METHODS -----
     /**
-     * Loads an image from a file path (using ImageIcon).
+     * Creates a new {@link Image} object from a provided image file.
      *
      * @param fileName The path to the image.
      * @return The Image object.
@@ -32,9 +34,10 @@ public class ImageManager {
     }
 
     /**
-     * Loads a BufferedImage from the provided file path. If the image is
-     * bundled in the JAR (or the classpath), use a URL. Otherwise, load it as a
-     * regular file.
+     * Creates a new {@link BufferedImage} object from the provided file path.
+     * <p>
+     * Note: If the image is bundled in the JAR (or the classpath), use a URL.
+     * Otherwise, load it as a regular file.
      *
      * @param filepath The file path (relative or absolute).
      * @return The loaded image object (if possible); {@code null} if a
@@ -48,7 +51,7 @@ public class ImageManager {
 
         try {
             // Try loading as a resource (for classpath resources, e.g., inside JAR file)
-            URL imageUrl = ImageManager.class.getResource(filepath);
+            URL imageUrl = ImageLoader.class.getResource(filepath);
             if (imageUrl != null) {
                 // If URL is found (i.e., resource exists in classpath), load it
                 bufferedImage = ImageIO.read(imageUrl);
@@ -64,34 +67,5 @@ public class ImageManager {
         }
 
         return bufferedImage;
-    }
-
-    /**
-     * Makes a copy of the given BufferedImage.
-     *
-     * @param source The source BufferedImage to copy.
-     * @return The copied BufferedImage.
-     */
-    public static BufferedImage copyImage(BufferedImage source) {
-        if (source == null) {
-            return null;
-        }
-
-        int imageWidth = source.getWidth();
-        int imageHeight = source.getHeight();
-
-        BufferedImage copy = new BufferedImage(
-                imageWidth,
-                imageHeight,
-                BufferedImage.TYPE_INT_ARGB
-        );
-
-        Graphics2D g2d = copy.createGraphics();
-
-        // Copy the image content
-        g2d.drawImage(source, 0, 0, null);
-        g2d.dispose();
-
-        return copy;
     }
 }

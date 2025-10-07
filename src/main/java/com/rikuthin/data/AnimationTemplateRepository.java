@@ -1,4 +1,4 @@
-package com.rikuthin.managers;
+package com.rikuthin.data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,26 +10,26 @@ import com.rikuthin.graphics.animations.AnimationTemplate;
  * templates. Ensures animations are only loaded once and reused across
  * entities.
  */
-public class AnimationManager {
+public class AnimationTemplateRepository {
 
     // ----- STATIC VARIABLES -----
-    private static final AnimationManager INSTANCE = new AnimationManager();
+    private static final AnimationTemplateRepository INSTANCE = new AnimationTemplateRepository();
     private static final Map<String, AnimationTemplate> animations = new HashMap<>();
 
     // ----- CONSTRUCTORS ------
     /**
      * Private constructor to enforce singleton pattern.
      */
-    private AnimationManager() {
+    private AnimationTemplateRepository() {
     }
 
     // ----- GETTERS -----
     /**
-     * Retrieves the singleton instance of the {@link AnimationManager}.
+     * Retrieves the singleton instance of the {@link AnimationTemplateRepository}.
      *
-     * @return The {@link AnimationManager} instance.
+     * @return The {@link AnimationTemplateRepository} instance.
      */
-    public static AnimationManager getInstance() {
+    public static AnimationTemplateRepository getInstance() {
         return INSTANCE;
     }
 

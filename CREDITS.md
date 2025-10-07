@@ -99,13 +99,15 @@ This project includes assets created by various artists and developers. Below is
 
 ### Direct contributions
 
-- **Zurun-Rikuthin** - Developer, UI Designer, Sound Designer, etc.
+- **Zurun-Rikuthin** - Developer, UI Designer, Sound Designer, etc. Original code was written for a game programming course assignment (though the end product was highly buggy and wildy incomplete).
 
 ### Indirect contributions
 
-- **Dr. Permanand Mohan (Teacher)** - Provided/demonstrated code during course lectures that was later borrowed and modified for use in this project.
+- **Dr. Permanand Mohan (Lecturer)** - Provided/demonstrated base-level code during course labs.  We were also allowed to use it as templates in our assignments.
 
-- **Ms. Zainab Hanif  (Lab Assistant)** - Provided/demonstrated code during course lectures that was later borrowed and modified for use in this project.
+- **Ms. Zainab Hanif (Lab Assistant)** - Provided/demonstrated base-level code during course labs.  We were also allowed to use it as templates in our assignments.
+
+- **Tamia Williams** - Partner for the game programming course project (we reused code from both our assignments).  Provided permission to reuse some of the bug fixes and additional classes created during our partnership.
 
 ---
 

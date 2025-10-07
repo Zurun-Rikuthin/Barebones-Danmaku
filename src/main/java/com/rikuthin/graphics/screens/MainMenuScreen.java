@@ -20,7 +20,7 @@ import com.rikuthin.graphics.UIConstants;
 import com.rikuthin.managers.ImageManager;
 import com.rikuthin.managers.SoundManager;
 
-import static com.rikuthin.utility.ButtonUtil.createButtonWithText;
+import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
 
 /**
  * Main menu screen of the game. Provides options to start a new game, view

@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.UIConstants;
 import com.rikuthin.graphics.screens.MainMenuScreen;
-import static com.rikuthin.utility.ButtonUtil.createButtonWithText;
+import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
 
 public class PauseMenuDialogue extends Dialog {
 

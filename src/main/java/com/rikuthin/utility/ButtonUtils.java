@@ -15,9 +15,9 @@ import com.rikuthin.managers.ImageManager;
 /**
  * Utility class for creating various buttons in the UI.
  */
-public class ButtonUtil {
+public class ButtonUtils {
 
-    private ButtonUtil() {
+    private ButtonUtils() {
         // Private constructor to prevent instantiation.
     }
 

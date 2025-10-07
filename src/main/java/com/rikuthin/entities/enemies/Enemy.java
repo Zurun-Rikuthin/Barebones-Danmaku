@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import com.rikuthin.entities.MobileEntity;
 import com.rikuthin.entities.bullets.Bullet;
 import com.rikuthin.entities.bullets.BulletSpawner;
+import com.rikuthin.geometry.Bearing2D;
 import com.rikuthin.graphics.GameFrame;
-import com.rikuthin.utility.Bearing2D;
 
 /**
  * Represents an enemy in the game that is mobile and can move within the game

@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 
 import com.rikuthin.graphics.UIConstants;
 import com.rikuthin.managers.GameManager;
-import com.rikuthin.utility.ButtonUtil;
+import com.rikuthin.utility.ButtonUtils;
 
 /**
  * The InfoPanel displays game information (e.g., player health, elapsed time,
@@ -59,7 +59,7 @@ public final class InfoPanel extends Subpanel {
         gameplayTimerLabel = new JLabel("HH:MM.SS");
         gameplayTimerLabel.setFont(UIConstants.BODY_FONT);
 
-        pauseButton = ButtonUtil.createButtonWithIcon("/images/icons/pause-button.png", 64, 64, false, GameManager.getInstance()::onPause);
+        pauseButton = ButtonUtils.createButtonWithIcon("/images/icons/pause-button.png", 64, 64, false, GameManager.getInstance()::onPause);
 
         Dimension scoreLabelSize = new Dimension(284, 80);
         highscoreLabel = new JLabel("Highscore: <lorem ipsum>");

@@ -7,8 +7,7 @@ import java.util.Set;
 import com.rikuthin.entities.Player;
 import com.rikuthin.entities.bullets.Bullet;
 import com.rikuthin.entities.enemies.Enemy;
-
-import managers.GameManager;
+import com.rikuthin.managers.GameManager;
 
 /**
  * A component that displays all the game entities

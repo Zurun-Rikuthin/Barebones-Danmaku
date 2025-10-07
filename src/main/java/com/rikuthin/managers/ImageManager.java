@@ -1,4 +1,4 @@
-package managers;
+package com.rikuthin.managers;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

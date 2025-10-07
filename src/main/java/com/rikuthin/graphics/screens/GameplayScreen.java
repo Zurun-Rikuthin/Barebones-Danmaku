@@ -11,9 +11,8 @@ import com.rikuthin.entities.Player;
 import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.graphics.screens.subpanels.InfoPanel;
-
-import managers.GameManager;
-import managers.SoundManager;
+import com.rikuthin.managers.GameManager;
+import com.rikuthin.managers.SoundManager;
 
 /**
  * The main gameplay screen where the game logic and rendering occur. Handles

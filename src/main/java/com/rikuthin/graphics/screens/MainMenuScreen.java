@@ -17,10 +17,10 @@ import javax.swing.SwingConstants;
 
 import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.UIConstants;
-import static com.rikuthin.utility.ButtonUtil.createButtonWithText;
+import com.rikuthin.managers.ImageManager;
+import com.rikuthin.managers.SoundManager;
 
-import managers.ImageManager;
-import managers.SoundManager;
+import static com.rikuthin.utility.ButtonUtil.createButtonWithText;
 
 /**
  * Main menu screen of the game. Provides options to start a new game, view

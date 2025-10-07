@@ -6,8 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-
-import managers.ImageManager;
+import com.rikuthin.managers.ImageManager;
 
 public class BrightnessFX implements ImageFX {
 

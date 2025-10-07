@@ -1,4 +1,4 @@
-package managers;
+package com.rikuthin.managers;
 
 import java.lang.StackWalker.StackFrame;
 import java.util.HashSet;

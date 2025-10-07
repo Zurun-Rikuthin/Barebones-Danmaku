@@ -13,9 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import com.rikuthin.graphics.UIConstants;
+import com.rikuthin.managers.GameManager;
 import com.rikuthin.utility.ButtonUtil;
-
-import managers.GameManager;
 
 /**
  * The InfoPanel displays game information (e.g., player health, elapsed time,

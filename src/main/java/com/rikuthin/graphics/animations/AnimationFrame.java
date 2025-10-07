@@ -2,7 +2,7 @@ package com.rikuthin.graphics.animations;
 
 import java.awt.image.BufferedImage;
 
-import managers.ImageManager;
+import com.rikuthin.managers.ImageManager;
 
 /**
  * Represents a single frame in the animation

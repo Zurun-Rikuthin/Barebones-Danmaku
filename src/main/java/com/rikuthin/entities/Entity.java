@@ -14,8 +14,7 @@ import com.rikuthin.graphics.animations.AnimationInstance;
 import com.rikuthin.graphics.animations.AnimationTemplate;
 import com.rikuthin.interfaces.Renderable;
 import com.rikuthin.interfaces.Updateable;
-
-import managers.AnimationManager;
+import com.rikuthin.managers.AnimationManager;
 
 /**
  * Represents a base entity in the game, providing common functionality for all

@@ -1,4 +1,4 @@
-# 🎮 Game Project Credits
+# 🎮 Project Credits
 
 This project includes assets created by various artists and developers. Below is a list of attributions for externally sourced graphics, sound, fonts, and other resources used in the game.
 
@@ -93,22 +93,24 @@ This project includes assets created by various artists and developers. Below is
 
 ## 🏗️ Contributors  
 
-- **Zurun-Rikuthin [Skyler Almarales]** - Developer, UI Designer, Sound Designer, etc. *(Also for Untitled Bubble Shooter)*
+### Direct contributions
 
-- **Dr. Permanand Mohan (Teacher)** - Original Codebase (*BatAlienGame-ScrollingBackground-Vert*)
+- **Zurun-Rikuthin** - Developer, UI Designer, Sound Designer, etc.
 
-- **Ms. Zainab Hanif  (Lab Assistant)** - Original Codebase (*BatAlienGame-ScrollingBackground-Vert*)
+### Indirect contributions
+
+- **Dr. Permanand Mohan (Teacher)** - Provided/demonstrated code during course lectures that was later borrowed and modified for use in this project.
+
+- **Ms. Zainab Hanif  (Lab Assistant)** - Provided/demonstrated code during course lectures that was later borrowed and modified for use in this project.
 
 ---
 
 ## 📜 License Information  
 
-This project is licensed under the [MIT License](https://mit-license.org/).
+Regarding the *overall* project/game, **all rights are reserved**.
 
-Certain assets may have their own licenses, as listed above.  
-
-For more information, refer to the individual asset license pages.
+*However*, certain **assets** may have their own licenses, as listed above.   For more information, refer to the individual asset license pages.
 
 ---
 
-*Last Updated: [2025-03-20 00:44 UTC-04:00]*
+*Last Updated: [2025-10-06 19:38 UTC-04:00]*

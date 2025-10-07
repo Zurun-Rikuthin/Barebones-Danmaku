@@ -4,8 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-
-import managers.ImageManager;
+import com.rikuthin.managers.ImageManager;
 
 public class OldBackground {
 

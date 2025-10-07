@@ -1,4 +1,4 @@
-package managers;
+package com.rikuthin.managers;
 
 import java.io.File;
 import java.io.IOException;

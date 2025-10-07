@@ -1,4 +1,4 @@
-package managers;
+package com.rikuthin.managers;
 
 import java.util.HashMap;
 import java.util.Map;

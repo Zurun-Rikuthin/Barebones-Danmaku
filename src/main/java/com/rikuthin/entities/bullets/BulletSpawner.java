@@ -11,9 +11,8 @@ import javax.swing.JPanel;
 import com.rikuthin.entities.Entity;
 import com.rikuthin.graphics.animations.AnimationInstance;
 import com.rikuthin.graphics.animations.AnimationTemplate;
-
-import managers.AnimationManager;
-import managers.GameManager;
+import com.rikuthin.managers.AnimationManager;
+import com.rikuthin.managers.GameManager;
 
 /**
  * Represents an invisible {@link Bullet} spawner controlled by a game

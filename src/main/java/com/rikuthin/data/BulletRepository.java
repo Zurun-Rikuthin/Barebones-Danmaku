@@ -6,125 +6,125 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import com.rikuthin.entities.enemies.Enemy;
+import com.rikuthin.entities.bullets.Bullet;
 import com.rikuthin.managers.GameManager;
 
 /**
  * Implements the **Repository pattern** as a singleton, providing centralized
- * storage and controlled access for all currently active {@link Enemy} objects
- * in the game world.
+ * access and management for all currently active {@link Bullet} objects in the
+ * game world.
  * <p>
- * This class serves as the single source of truth for the game's active enemy
+ * This class serves as the single source of truth for the game's active bullet
  * population. It protects the integrity of the collection by exposing a
- * read-only view via {@link #getEnemies()} and requiring explicit mutation
- * methods (like {@link #addEnemy(Enemy)} and {@link #removeIf(Predicate)}) for
- * modification.
+ * read-only view via {@link #getBullets()} and requiring explicit mutation
+ * methods (like {@link #addBullet(Bullet))} and {@link #removeIf(Predicate)})
+ * for modification.
  */
-public class EnemyRepository {
+public class BulletRepository {
 
     // ----- STATIC VARIABLES -----
     /**
      * The single instance of the repository, implementing the **Singleton
      * pattern**.
      */
-    private static final EnemyRepository INSTANCE = new EnemyRepository();
+    private static final BulletRepository INSTANCE = new BulletRepository();
 
     /**
-     * Stores references to all active enemies on screen.
+     * Stores references to all active bullets on screen.
      */
-    private static final HashSet<Enemy> ACTIVE_ENEMIES = new HashSet<>();
+    private static final HashSet<Bullet> ACTIVE_BULLETS = new HashSet<>();
 
     // ----- CONSTRUCTORS ------
     /**
      * Private constructor to enforce singleton pattern.
      */
-    private EnemyRepository() {
+    private BulletRepository() {
     }
 
     // ----- GETTERS -----
     /**
-     * Retrieves the singleton instance of the {@link EnemyRepository}.
+     * Retrieves the singleton instance of the {@link BulletRepository}.
      *
-     * @return The {@link EnemyRepository} instance.
+     * @return The {@link BulletRepository} instance.
      */
-    public static EnemyRepository getInstance() {
+    public static BulletRepository getInstance() {
         return INSTANCE;
     }
 
     /**
      * /**
-     * Returns an unmodifiable/read-only view of the stored {@link Enemy}
+     * Returns an unmodifiable/read-only view of the stored {@link Bullet}
      * objects.
      * <p>
      * Modifications must be done via the repository's explicit mutation methods
-     * (e.g., addEnemy, removeIf).
+     * (e.g., addBullet, removeIf).
      *
-     * @return The active enemies.
+     * @return The active bullets.
      */
-    public Set<Enemy> getEnemies() {
-        ensureRunning("getEnemies");
+    public Set<Bullet> getBullets() {
+        ensureRunning("getBullets");
         // This wrapper prevents the caller from accidentally
         // adding or removing elements, thus protecting the repository's internal state.
-        return Collections.unmodifiableSet(ACTIVE_ENEMIES);
+        return Collections.unmodifiableSet(ACTIVE_BULLETS);
     }
 
     // ----- BUSINESS LOGIC METHODS -----
     /**
-     * Adds a new {@link Enemy} instance to the repository's collection of
-     * active enemies.
+     * Adds a new {@link Bullet} instance to the repository's collection of
+     * active bullets.
      * <p>
-     * The enemy is added only if the provided argument is not {@code null}.
+     * The bullet is added only if the provided argument is not {@code null}.
      *
-     * @param enemy The new {@link Enemy} instance to store.
+     * @param bullet The new {@link Bullet} instance to store.
      * @throws IllegalStateException If the {@link GameManager} is not in the
      * required {@code RUNNING} state.
      */
-    public void addEnemy(final Enemy enemy) {
-        ensureRunning("addEnemy");
-        if (enemy != null) {
-            ACTIVE_ENEMIES.add(enemy);
+    public void addBullet(final Bullet bullet) {
+        ensureRunning("addBullet");
+        if (bullet != null) {
+            ACTIVE_BULLETS.add(bullet);
         }
     }
 
     /**
-     * Removes a specific {@link Enemy} instance from the repository.
+     * Removes a specific {@link Bullet} instance from the repository.
      *
-     * @param enemy The enemy to remove.
-     * @return {@code true} if the enemy was present and successfully removed,
+     * @param bullet The bullet to remove.
+     * @return {@code true} if the bullet was present and successfully removed,
      * {@code false} otherwise.
      */
-    public boolean removeEnemy(final Enemy enemy) {
-        return ACTIVE_ENEMIES.remove(enemy);
+    public boolean removeBullet(final Bullet bullet) {
+        return ACTIVE_BULLETS.remove(bullet);
     }
 
     /**
-     * Removes any {@link Enemy} objects from storage which meet the given
+     * Removes any {@link Bullet} objects from storage which meet the given
      * filter's requirements.
      *
      * @param filter A {@code boolean-valued} function which serves as a filter.
-     * @return The number of enemies removed.
+     * @return The number of bullets removed.
      */
-    public int removeIf(Predicate<Enemy> filter) {
-        int initialSize = ACTIVE_ENEMIES.size();
-        ACTIVE_ENEMIES.removeIf(filter);
-        return initialSize - ACTIVE_ENEMIES.size();
+    public int removeIf(Predicate<Bullet> filter) {
+        int initialSize = ACTIVE_BULLETS.size();
+        ACTIVE_BULLETS.removeIf(filter);
+        return initialSize - ACTIVE_BULLETS.size();
     }
 
     /**
-     * Removes all stored enemies from the repository.
+     * Removes all stored bullets from the repository.
      */
     public void clear() {
-        ACTIVE_ENEMIES.clear();
+        ACTIVE_BULLETS.clear();
     }
 
     /**
-     * Counts the number of stored {@link Enemy} objects.
+     * Counts the number of stored {@link Bullet} objects.
      *
-     * @return The no. enemies stored.
+     * @return The no. bullets stored.
      */
-    public int countEnemies() {
-        ensureRunning("getEnemies");
-        return ACTIVE_ENEMIES.size();
+    public int countBullets() {
+        ensureRunning("getBullets");
+        return ACTIVE_BULLETS.size();
     }
 
     /**
@@ -134,7 +134,7 @@ public class EnemyRepository {
      * {@code false}.
      */
     public boolean isEmpty() {
-        return ACTIVE_ENEMIES.isEmpty();
+        return ACTIVE_BULLETS.isEmpty();
     }
 
     // ----- HELPER METHODS -----

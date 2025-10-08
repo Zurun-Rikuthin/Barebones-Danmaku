@@ -1,5 +1,6 @@
 package com.rikuthin.data;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,9 @@ import com.rikuthin.graphics.animations.AnimationTemplate;
  * different game entities to conserve memory and maintain consistency.
  */
 public class AnimationTemplateRepository {
+
+    //TODO: Figure out a way to rework this thing so that animations can be unloaded as needed during runtime to free up memory.
+    // Not a major issue right now, but could be if this system get developed into/used for a large enough app.
 
     // ----- STATIC VARIABLES -----
     /**
@@ -52,8 +56,8 @@ public class AnimationTemplateRepository {
      * Retrieves a stored {@link AnimationTemplate} by its unique key.
      *
      * @param key The unique identifier for the animation.
-     * @return The corresponding {@link AnimationTemplate}, or {@code null} if a
-     * template with the given key has not been added.
+     * @return The corresponding {@link AnimationTemplate} object, or
+     * {@code null} if a template with the given key has not been added.
      */
     public AnimationTemplate getAnimation(String key) {
         return STORED_ANIMATION_TEMPLATES.get(key);
@@ -67,12 +71,12 @@ public class AnimationTemplateRepository {
      * {@link AnimationTemplate} objects.
      */
     public Map<String, AnimationTemplate> getAllAnimations() {
-        return STORED_ANIMATION_TEMPLATES;
+        return Collections.unmodifiableMap(STORED_ANIMATION_TEMPLATES);
     }
 
     // ----- BUSINESS LOGIC METHODS -----
     /**
-     * Adds a new {@link AnimationTemplate} to the repository, but only if one
+     * Adds a new {@link AnimationTemplate} object to the repository, but only if one
      * with given key does not already exist.
      *
      * @param key The unique identifier for the animation.

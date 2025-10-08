@@ -26,9 +26,14 @@ public class AnimationLoader {
 
     // ----- STATIC VARIABLES -----
     /**
-     * Base folder where animation image assets are located.
+     * The repository instance used to access and mutate the collection of
+     * loaded animations.
      */
-    private static final String ANIMATION_FOLDER = "/images/animations/";
+    private static final AnimationTemplateRepository repository = AnimationTemplateRepository.getInstance();
+    /**
+     * Base directory where animation image assets are stored, relative to the classpath.
+     */
+    private static final String ANIMATION_DIRECTORY = "/images/animations/";
     /**
      * The base duration of one frame at the app's set frame rate (default is
      * ~60 FPS). Used as the reference for computing frame duration via
@@ -130,7 +135,7 @@ public class AnimationLoader {
             // Load the JSON configuration file containing animation data
             InputStream input = AnimationLoader.class.getResourceAsStream("/images/animations/animations_config.json");
             if (input == null) {
-                throw new IOException("animations_config.json not found in " + ANIMATION_FOLDER);
+                throw new IOException("animations_config.json not found in " + ANIMATION_DIRECTORY);
             }
 
             List<AnimationConfig> configs = mapper.readValue(input, new TypeReference<List<AnimationConfig>>() {
@@ -139,7 +144,7 @@ public class AnimationLoader {
             for (AnimationConfig config : configs) {
                 // Load the frames from the sprite sheet using the data from the JSON
                 List<AnimationFrame> frames = AnimationLoader.loadFromSpriteSheet(
-                        ANIMATION_FOLDER + config.fileName,
+                        ANIMATION_DIRECTORY + config.fileName,
                         config.numRows,
                         config.numColumns,
                         (long) (config.frameTimeMultiplier * BASE_FRAME_TIME_MS)
@@ -153,7 +158,7 @@ public class AnimationLoader {
                 String animationKey = fileNameOnly.substring(0, fileNameOnly.lastIndexOf('.'));
 
                 // Add the animation to the AnimationManager
-                AnimationTemplateRepository.getInstance().addAnimation(animationKey, animationTemplate);
+                repository.addAnimation(animationKey, animationTemplate);
 
                 System.out.printf("Loaded animation <%s> with <%d> frames.%n", animationKey, frames.size());
             }

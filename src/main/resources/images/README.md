@@ -1,8 +1,8 @@
 # Images Directory
 
-This folder contains all the images used in the project, including character sprites, animation strips, and other graphical assets.
+This directory contains all the images used in the project, including character sprites, animation strips, and other graphical assets.
 
-## Folder Structure
+## Directory Structure
 
 The images are organized into the following subdirectories:
 
@@ -27,7 +27,7 @@ Example contents:
 
 For individual sprites:
 
-* Add each sprite as a separate image in the `/sprites/` folder.
+* Add each sprite as a separate image in the `/sprites/` directory.
 
 * Ensure filenames are clear and descriptive (e.g., `player_idle_0.png`, `enemy_walk_1.png`).
 
@@ -38,7 +38,7 @@ For animation strips:
   
   * Note: Some sprites in an animation (e.g., walking animations) may have varying dimensions, which can result in gaps. These gaps are acceptable, but it's important to playergn the sprites consistently across the strip.
 
-* Save the resulting strip image in the `/animations/` folder.
+* Save the resulting strip image in the `/animations/` directory.
 
 * Ensure the strip layout is clear and well-organized, whether arranged horizontally, vertically, or in a grid.
 
@@ -61,7 +61,7 @@ Example contents:
 
 #### How to Add or Modify Backgrounds
 
-* Add new background images by placing them in the `/backgrounds/` folder.
+* Add new background images by placing them in the `/backgrounds/` directory.
 
 * **File Naming**: Use descriptive names that reflect the content or level the background is associated with (e.g., `level_2_background.png`, `night_forest.png`).
 
@@ -92,7 +92,7 @@ If you're contributing to this project, please make sure to add new sprites or a
 
 ## 🧠 TL;DR
 
-This folder holds all game image assets:
+This directory holds all game image assets:
 
 * `/sprites/`: individual frames for characters/objects
 

@@ -18,8 +18,7 @@ import javax.swing.SwingConstants;
 import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.UIConstants;
 import com.rikuthin.loaders.ImageLoader;
-import com.rikuthin.managers.SoundManager;
-
+import com.rikuthin.managers.AudioManager;
 import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
 
 /**
@@ -90,7 +89,7 @@ public class MainMenuScreen extends Screen {
 
         add(centreWrapper, BorderLayout.CENTER);
 
-        SoundManager soundManager = SoundManager.getInstance();
+        AudioManager soundManager = AudioManager.getINSTANCE();
         soundManager.stopAll();
         soundManager.playClip("goblinsDen", true);
     }

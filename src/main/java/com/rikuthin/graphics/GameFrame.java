@@ -8,10 +8,10 @@ import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 import static com.rikuthin.App.FRAME_RATE_MS;
-
 import com.rikuthin.graphics.screens.MainMenuScreen;
 import com.rikuthin.graphics.screens.Screen;
 import com.rikuthin.loaders.AnimationLoader;
+import com.rikuthin.loaders.AudioLoader;
 
 public final class GameFrame extends JFrame {
 
@@ -39,6 +39,9 @@ public final class GameFrame extends JFrame {
      */
     public GameFrame() {
         AnimationLoader.loadAnimationsFromJson();
+        AudioLoader.loadAudioFromJson();
+
+        // TODO: Rework loading order
 
         setTitle("<Untitled Danmaku>");
         setSize(FRAME_WIDTH, FRAME_HEIGHT);

@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
 
 /**
  * Utility class for creating various buttons in the UI.
@@ -35,7 +35,7 @@ public class ButtonUtils {
     public static JButton createButtonWithIcon(final String imageFilepath, final int buttonWidth, final int buttonHeight, boolean enabled, final ActionListener actionListener) {
         JButton button = createGenericButton(new JButton(), buttonWidth, buttonHeight, enabled, actionListener);
         try {
-            BufferedImage image = ImageManager.loadBufferedImage(imageFilepath);
+            BufferedImage image = ImageLoader.loadBufferedImage(imageFilepath);
             button.setIcon(new ImageIcon (image));
         } catch (Exception e) {
             e.printStackTrace();

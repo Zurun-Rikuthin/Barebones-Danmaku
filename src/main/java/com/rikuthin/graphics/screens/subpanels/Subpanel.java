@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import com.rikuthin.interfaces.Renderable;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
 
 /**
  * Abstract base class for all game screens (e.g., main menu, gameplay).
@@ -37,7 +37,7 @@ public abstract class Subpanel extends JPanel implements Renderable {
      */
     public final void setBackgroundImage(final String backgroundImageFilepath) {
         this.backgroundImageFilepath = backgroundImageFilepath;
-        backgroundImage = ImageManager.loadBufferedImage(backgroundImageFilepath);
+        backgroundImage = ImageLoader.loadBufferedImage(backgroundImageFilepath);
 
         if (backgroundImage == null) {
             System.err.println(String.format(

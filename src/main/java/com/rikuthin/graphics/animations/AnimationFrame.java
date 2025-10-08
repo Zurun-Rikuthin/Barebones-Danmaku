@@ -2,7 +2,8 @@ package com.rikuthin.graphics.animations;
 
 import java.awt.image.BufferedImage;
 
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
+import com.rikuthin.utility.ImageUtils;
 
 /**
  * Represents a single frame in the animation
@@ -67,7 +68,7 @@ public class AnimationFrame {
             ));
         }
 
-        this.image = ImageManager.loadBufferedImage(imageFilepath);
+        this.image = ImageLoader.loadBufferedImage(imageFilepath);
         this.displayDurationMs = displayDurationMs;
     }
 

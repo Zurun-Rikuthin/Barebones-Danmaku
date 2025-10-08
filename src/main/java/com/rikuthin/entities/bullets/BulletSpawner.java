@@ -9,10 +9,10 @@ import java.util.Set;
 import javax.swing.JPanel;
 
 import com.rikuthin.data.AnimationTemplateRepository;
+import com.rikuthin.data.BulletRepository;
 import com.rikuthin.entities.Entity;
 import com.rikuthin.graphics.animations.AnimationInstance;
 import com.rikuthin.graphics.animations.AnimationTemplate;
-import com.rikuthin.managers.GameManager;
 
 /**
  * Represents an invisible {@link Bullet} spawner controlled by a game
@@ -351,7 +351,7 @@ public class BulletSpawner extends Entity {
                 .animationKeys(bulletAnimationKeys)
                 .currentAnimationKey(currentBulletAnimationKey)
                 .build();
-        GameManager.getInstance().getBulletManager().addBullet(bullet);
+        BulletRepository.getInstance().addBullet(bullet);
         return bullet;
     }
 

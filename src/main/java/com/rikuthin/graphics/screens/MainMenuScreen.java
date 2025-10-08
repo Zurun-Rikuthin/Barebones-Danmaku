@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 
 import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.UIConstants;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
 import com.rikuthin.managers.SoundManager;
 
 import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
@@ -48,7 +48,7 @@ public class MainMenuScreen extends Screen {
         setLayout(new BorderLayout());
 
         backgroundImageFilepath = "/images/backgrounds/main-menu.png";
-        backgroundImage = ImageManager.loadBufferedImage(backgroundImageFilepath);
+        backgroundImage = ImageLoader.loadBufferedImage(backgroundImageFilepath);
 
         // ----- Title Section (Centered at the top) -----
         titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));

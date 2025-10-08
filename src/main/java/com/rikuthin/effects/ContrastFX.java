@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
+import com.rikuthin.utility.ImageUtils;
 
 public class ContrastFX implements ImageFX {
 
@@ -36,7 +37,7 @@ public class ContrastFX implements ImageFX {
         contrast = 1.0;				// range is 0 to 3.0
         contrastChange = 0.01;			// increase of contrast on each update
 
-        spriteImage = ImageManager.loadBufferedImage("images/Butterfly.png");
+        spriteImage = ImageLoader.loadBufferedImage("images/Butterfly.png");
 
     }
 
@@ -79,7 +80,7 @@ public class ContrastFX implements ImageFX {
 
     public void draw(Graphics2D g2) {
 
-        copy = ImageManager.copyImage(spriteImage);
+        copy = ImageUtils.copyImage(spriteImage);
         // make copy of image for brightness effect
 
         int imWidth = copy.getWidth();

@@ -4,7 +4,7 @@ package com.rikuthin.graphics.backgrounds;
 // import java.awt.Graphics2D;
 // import java.awt.Image;
 
-// import com.rikuthin.graphics.ImageManager;
+// import com.rikuthin.graphics.ImageUtils;
 
 // /**
 //  * Represents a background image that scrolls infinitely in the vertical
@@ -68,7 +68,7 @@ package com.rikuthin.graphics.backgrounds;
 //      * @param y The initial y coordinate of the first image.
 //      */
 //     public final void setImage(String imageFilepath, int x, int y) {
-//         image = ImageManager.loadImage(imageFilepath);
+//         image = ImageLoader.loadImage(imageFilepath);
 //         imageHeight = image.getHeight(null);
 //     }
 

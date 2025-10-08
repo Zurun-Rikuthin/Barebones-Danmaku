@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
+import com.rikuthin.utility.ImageUtils;
 
 public class DisappearFX implements ImageFX {
 
@@ -40,8 +41,8 @@ public class DisappearFX implements ImageFX {
         alpha = 255;				// set to 255 (fully opaque)
         alphaChange = 5;			// how to update alpha in game loop
 
-        spriteImage = ImageManager.loadBufferedImage("images/Butterfly.png");
-        copy = ImageManager.copyImage(spriteImage);
+        spriteImage = ImageLoader.loadBufferedImage("images/Butterfly.png");
+        copy = ImageUtils.copyImage(spriteImage);
         //  make a copy of the original image
 
     }

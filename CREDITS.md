@@ -107,7 +107,7 @@ This project includes assets created by various artists and developers. Below is
 
 - **Ms. Zainab Hanif (Lab Assistant)** - Provided/demonstrated base-level code during course labs.  We were also allowed to use it as templates in our assignments.
 
-- **Tamia Williams** - Partner for the game programming course project (we reused code from both our assignments).  Provided permission to reuse some of the bug fixes and additional classes created during our partnership.
+- **Tamia Williams** - Partner for the game programming course project, *'Professor Punctual'*, (we reused code from both our assignments).  Provided permission to reuse some of the bug fixes and additional code created during our partnership.
 
 ---
 
@@ -119,4 +119,4 @@ Regarding the *overall* project/game, **all rights are reserved**.
 
 ---
 
-*Last Updated: [2025-10-07 14:49 UTC-04:00]*
+*Last Updated: [2025-10-08 00:08 UTC-04:00]*

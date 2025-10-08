@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
 
 public class OldBackground {
 
@@ -30,7 +30,7 @@ public class OldBackground {
     public OldBackground(GamePanel panel, String imageFile, int bgDX) {
 
         this.panel = panel;
-        this.bgImage = ImageManager.loadImage(imageFile);
+        this.bgImage = ImageLoader.loadImage(imageFile);
         bgImageWidth = bgImage.getWidth(null);		// get width of the background
         bgImageHeight = bgImage.getHeight(null);	// get width of the background
 
@@ -72,12 +72,12 @@ public class OldBackground {
     public void move(int direction) {
 
         if (direction == 1) {
-            moveRight(); 
-        }else if (direction == 2) {
-            moveLeft(); 
-        }else if (direction == 3) {
-            moveDown(); 
-        }else if (direction == 4) {
+            moveRight();
+        } else if (direction == 2) {
+            moveLeft();
+        } else if (direction == 3) {
+            moveDown();
+        } else if (direction == 4) {
             moveUp();
         }
     }

@@ -38,7 +38,7 @@ public final class GameFrame extends JFrame {
      * instance and sets the blaster and bubble panels.
      */
     public GameFrame() {
-        AnimationLoader.loadDefaultAnimations();
+        AnimationLoader.loadAnimationsFromJson();
 
         setTitle("<Untitled Danmaku>");
         setSize(FRAME_WIDTH, FRAME_HEIGHT);

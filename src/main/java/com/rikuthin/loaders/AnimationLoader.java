@@ -16,7 +16,7 @@ import static com.rikuthin.App.FRAME_RATE_MS;
 import com.rikuthin.data.AnimationTemplateRepository;
 import com.rikuthin.graphics.animations.AnimationFrame;
 import com.rikuthin.graphics.animations.AnimationTemplate;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.utility.ImageUtils;
 
 /**
  * Utility class for loading animations from sprite sheets (strip files) and
@@ -79,7 +79,7 @@ public class AnimationLoader {
         numColumns = Math.max(numColumns, 1);
         frameDurationMs = Math.max(frameDurationMs, 1);
 
-        BufferedImage spriteSheet = ImageManager.loadBufferedImage(filePath);
+        BufferedImage spriteSheet = ImageLoader.loadBufferedImage(filePath);
         if (spriteSheet == null) {
             throw new IOException("AnimationLoader: Failed to load sprite sheet: " + filePath);
         }
@@ -93,7 +93,7 @@ public class AnimationLoader {
                 int x = column * frameWidth;
                 int y = row * frameHeight;
 
-                BufferedImage frameImage = ImageManager.scaleBufferedImageSize(extractFrameImage(spriteSheet, x, y, frameWidth, frameHeight), 1.5);
+                BufferedImage frameImage = ImageUtils.scaleBufferedImageSize(extractFrameImage(spriteSheet, x, y, frameWidth, frameHeight), 1.5);
                 frames.add(new AnimationFrame(frameImage, frameDurationMs));
             }
         }
@@ -153,7 +153,7 @@ public class AnimationLoader {
                 String animationKey = fileNameOnly.substring(0, fileNameOnly.lastIndexOf('.'));
 
                 // Add the animation to the AnimationManager
-                AnimationManager.getInstance().addAnimation(animationKey, animationTemplate);
+                AnimationTemplateRepository.getInstance().addAnimation(animationKey, animationTemplate);
 
                 System.out.printf("Loaded animation <%s> with <%d> frames.%n", animationKey, frames.size());
             }

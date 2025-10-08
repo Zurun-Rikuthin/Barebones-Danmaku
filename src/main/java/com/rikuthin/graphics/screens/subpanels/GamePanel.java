@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Set;
 
+import com.rikuthin.data.BulletRepository;
+import com.rikuthin.data.EnemyRepository;
 import com.rikuthin.entities.Player;
 import com.rikuthin.entities.bullets.Bullet;
 import com.rikuthin.entities.enemies.Enemy;
@@ -40,14 +42,14 @@ public class GamePanel extends Subpanel {
             player.safeRender(g2d);
         }
 
-        Set<Enemy> enemies = gameManager.getEnemyManager().getEnemies();
+        Set<Enemy> enemies = EnemyRepository.getInstance().getEnemies();
         if (enemies != null) {
             for (Enemy e : enemies) {
                 e.safeRender(g2d);
             }
         }
 
-        Set<Bullet> bullets = gameManager.getBulletManager().getBullets();
+        Set<Bullet> bullets = BulletRepository.getInstance().getBullets();
         if (bullets != null) {
             for (Bullet b : bullets) {
                 b.safeRender(g2d);

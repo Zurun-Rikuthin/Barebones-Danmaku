@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
+import com.rikuthin.utility.ImageUtils;
 
 public class BrightnessFX implements ImageFX {
 
@@ -38,7 +39,7 @@ public class BrightnessFX implements ImageFX {
 
         brightnessChange = 5;			// increase of brightness in each update
 
-        spriteImage = ImageManager.loadBufferedImage("images/Butterfly.png");
+        spriteImage = ImageLoader.loadBufferedImage("images/Butterfly.png");
 
     }
 
@@ -81,7 +82,7 @@ public class BrightnessFX implements ImageFX {
 
     public void draw(Graphics2D g2) {
 
-        copy = ImageManager.copyImage(spriteImage);
+        copy = ImageUtils.copyImage(spriteImage);
         // make copy of image for brightness effect
 
         int imWidth = copy.getWidth();

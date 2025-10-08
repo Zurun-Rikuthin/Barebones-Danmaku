@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
+import com.rikuthin.utility.ImageUtils;
 
 public class DisintegrateFX implements ImageFX {
 
@@ -36,8 +37,8 @@ public class DisintegrateFX implements ImageFX {
         time = 0;				// range is 0 to 70
         timeChange = 1;				// how to increment time in game loop
 
-        spriteImage = ImageManager.loadBufferedImage("images/Butterfly.png");
-        copy = ImageManager.copyImage(spriteImage);
+        spriteImage = ImageLoader.loadBufferedImage("images/Butterfly.png");
+        copy = ImageUtils.copyImage(spriteImage);
         //  make a copy of the original image
 
     }
@@ -72,7 +73,7 @@ public class DisintegrateFX implements ImageFX {
         }else if (time == 60) {
             eraseImageParts(copy, 1); 
         }else if (time == 70) {
-            copy = ImageManager.copyImage(spriteImage);
+            copy = ImageUtils.copyImage(spriteImage);
         }
 
         g2.drawImage(copy, x, y, WIDTH, HEIGHT, null);

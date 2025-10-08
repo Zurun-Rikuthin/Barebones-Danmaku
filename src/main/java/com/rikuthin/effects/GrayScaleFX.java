@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
-import com.rikuthin.managers.ImageManager;
+import com.rikuthin.loaders.ImageLoader;
+import com.rikuthin.utility.ImageUtils;
 
 public class GrayScaleFX implements ImageFX {
 
@@ -39,8 +40,8 @@ public class GrayScaleFX implements ImageFX {
         originalImage = true;
         grayImage = false;
 
-        spriteImage = ImageManager.loadBufferedImage("images/Butterfly.png");
-        copyImage = ImageManager.copyImage(spriteImage);
+        spriteImage = ImageLoader.loadBufferedImage("images/Butterfly.png");
+        copyImage = ImageUtils.copyImage(spriteImage);
         //  make a copy of the original image
         copyToGray();
 

@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 import javax.swing.Timer;
 
+import com.rikuthin.data.BulletRepository;
+import com.rikuthin.data.EnemyRepository;
 import com.rikuthin.entities.Player;
 import com.rikuthin.entities.bullets.BulletSpawner;
 import com.rikuthin.graphics.GameFrame;
@@ -234,8 +236,8 @@ public class GameManager implements Updateable {
             gamePanel = null;
             infoPanel = null;
             player = null;
-            enemyManager.clear();
-            bulletManager.clear();
+            EnemyRepository.getInstance().clear();
+            BulletRepository.getInstance().clear();
         }
     }
 

@@ -6,15 +6,29 @@ import java.util.Map;
 import com.rikuthin.graphics.animations.AnimationTemplate;
 
 /**
- * Singleton manager responsible for storing and retrieving shared animation
- * templates. Ensures animations are only loaded once and reused across
- * entities.
+ * Implements the **Repository pattern** as a singleton, providing centralized
+ * access and management for all shared {@link AnimationTemplate} objects.
+ * <p>
+ * This class ensures that animation definitions (templates) are loaded only
+ * once, are uniquely identified by a key, and are reused safely across
+ * different game entities to conserve memory and maintain consistency.
  */
 public class AnimationTemplateRepository {
 
     // ----- STATIC VARIABLES -----
+    /**
+     * The single instance of the repository, implementing the **Singleton
+     * pattern**.
+     */
     private static final AnimationTemplateRepository INSTANCE = new AnimationTemplateRepository();
-    private static final Map<String, AnimationTemplate> animations = new HashMap<>();
+
+    /**
+     * The internal, thread-safe storage for all shared
+     * {@link AnimationTemplate} objects. Keys are the unique identifiers
+     * (names) of the animations, and values are the {@link AnimationTemplate}
+     * objects.
+     */
+    private static final Map<String, AnimationTemplate> STORED_ANIMATION_TEMPLATES = new HashMap<>();
 
     // ----- CONSTRUCTORS ------
     /**
@@ -25,7 +39,8 @@ public class AnimationTemplateRepository {
 
     // ----- GETTERS -----
     /**
-     * Retrieves the singleton instance of the {@link AnimationTemplateRepository}.
+     * Retrieves the singleton instance of the
+     * {@link AnimationTemplateRepository}.
      *
      * @return The {@link AnimationTemplateRepository} instance.
      */
@@ -34,34 +49,36 @@ public class AnimationTemplateRepository {
     }
 
     /**
-     * Retrieves an animation template by its key.
+     * Retrieves a stored {@link AnimationTemplate} by its unique key.
      *
      * @param key The unique identifier for the animation.
-     * @return The corresponding {@link AnimationTemplate}, or null if not
-     * found.
+     * @return The corresponding {@link AnimationTemplate}, or {@code null} if a
+     * template with the given key has not been added.
      */
     public AnimationTemplate getAnimation(String key) {
-        return animations.get(key);
+        return STORED_ANIMATION_TEMPLATES.get(key);
     }
 
     /**
-     * Retrieves all stored animations.
+     * Retrieves a read-only view of all stored {@link AnimationTemplate}
+     * objects.
      *
-     * @return The map of animations.
+     * The map where keys are animation identifiers and values are the
+     * {@link AnimationTemplate} objects.
      */
     public Map<String, AnimationTemplate> getAllAnimations() {
-        return animations;
+        return STORED_ANIMATION_TEMPLATES;
     }
 
     // ----- BUSINESS LOGIC METHODS -----
     /**
-     * Adds a new animation template to the manager. If an animation with the
-     * given key already exists, it is not replaced.
+     * Adds a new {@link AnimationTemplate} to the repository, but only if one
+     * with given key does not already exist.
      *
      * @param key The unique identifier for the animation.
-     * @param animation The AnimationTemplate to store.
+     * @param animation The {@link AnimationTemplate} object to store.
      */
     public void addAnimation(String key, AnimationTemplate animation) {
-        animations.putIfAbsent(key, animation);
+        STORED_ANIMATION_TEMPLATES.putIfAbsent(key, animation);
     }
 }

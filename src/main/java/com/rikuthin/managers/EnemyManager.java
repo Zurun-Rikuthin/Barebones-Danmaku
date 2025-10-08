@@ -2,10 +2,11 @@ package com.rikuthin.managers;
 
 import java.awt.Point;
 import java.lang.StackWalker.StackFrame;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import com.rikuthin.data.EnemyRepository;
 import com.rikuthin.entities.Player;
 import com.rikuthin.entities.enemies.BlueMage;
 import com.rikuthin.entities.enemies.Enemy;
@@ -15,6 +16,15 @@ import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.interfaces.Updateable;
 
+/**
+ * The {@code EnemyManager} is the primary service responsible for the **active
+ * lifecycle** of all enemies in the game.
+ * <p>
+ * This manager dictates enemy behavior by handling spawning (creation rules),
+ * entity updates (calling the {@link Enemy#update()} method on all active
+ * enemies), and cleanup (defining the criteria for enemy removal), delegating
+ * storage and mutation to the {@link EnemyRepository}.
+ */
 public class EnemyManager implements Updateable {
 
     /**
@@ -29,43 +39,41 @@ public class EnemyManager implements Updateable {
 
     // ----- INSTANCE VARIABLES -----
     /**
-     * Stores references to all active enemies on screen.
+     * The repository instance used to access and mutate the collection of
+     * active enemies.
      */
-    private HashSet<Enemy> enemies;
+    private final EnemyRepository repository;
     /**
      * Random generator used by various methods.
      */
     private Random random;
     /**
-     * Tracks whether the cooldown timer is active.
+     * Flag indicating whether the enemy creation cooldown timer is currently
+     * active.
      */
     private boolean isOnCreationCooldown;
     /**
-     * The elapsed time (in milliseconds) since the enemy creation cooldown
-     * began.
+     * The elapsed time (in milliseconds) since the last enemy was created.
      */
     private long elapsedCreationCooldownMs;
     /**
-     * The timestamp (in milliseconds) of the last update call.
+     * The system time (in milliseconds) when the manager was last updated. Used
+     * to calculate delta time for cooldown tracking.
      */
     private long lastUpdateTime;
 
     // ----- CONSTRUCTORS -----
+    /**
+     * Constructs the {@code EnemyManager} and retrieves the singleton instance
+     * of the {@link EnemyRepository} to establish its dependency. Initializes
+     * the manager for game start.
+     */
     public EnemyManager() {
+        repository = EnemyRepository.getInstance();
         init();
     }
 
     // ----- GETTERS -----
-    /**
-     * Returns all active {@link Enemy} instances.
-     *
-     * @return The enemies.
-     */
-    public Set<Enemy> getEnemies() {
-        ensureRunning("getEnemies");
-        return enemies;
-    }
-
     /**
      * Checks if the enemy creation cooldown is currently active.
      *
@@ -76,26 +84,27 @@ public class EnemyManager implements Updateable {
     }
 
     /**
-     * Gets the cooldown time in milliseconds before another enemy can be
-     * created.
+     * Gets the required cooldown time in milliseconds between enemy creations.
      *
-     * @return The cooldown time.
+     * @return The cooldown time in millisecods.
      */
     public long getEnemyCreationCooldownMs() {
         return ENEMY_CREATION_COOLDOWN_MS;
     }
 
     /**
-     * Returns how many milliseconds of the enemy creation cooldown have passed.
+     * Returns how many milliseconds of the enemy creation cooldown have passed
+     * since the last enemy was created.
      *
-     * @return The elasped time.
+     * @return The elasped time in milliseconds.
      */
     public long getElapsedCreationCooldownMs() {
         return elapsedCreationCooldownMs;
     }
 
     /**
-     * Returns the last time the manager was updated in milliseconds.
+     * Returns the system timestamp (in milliseconds) of the manager's last
+     * {@link #update()} call.
      *
      * @return The last update time.
      */
@@ -105,59 +114,69 @@ public class EnemyManager implements Updateable {
 
     // ----- BUSINESS LOGIC METHODS -----
     /**
-     * Initializes the EnemyManager for a new game. This method sets up all the
-     * necessary objects to manage enemies and clears old enemy data.
+     * Initializes the EnemyManager for a new game.
+     * <p>
+     * This method resets the random generator, clears the repository of old
+     * enemies, and resets all cooldown tracking variables.
      */
     public final void init() {
         random = new Random();
-        clear();
+        repository.clear();
         isOnCreationCooldown = false;
         elapsedCreationCooldownMs = 0;
         lastUpdateTime = 0;
     }
 
     /**
-     * Clears old enemy data.
-     */
-    public void clear() {
-        enemies = new HashSet<>();
-    }
-
-    /**
-     * Checks if a new enemy can be created.
+     * Checks if a new enemy can be created based on the maximum enemy count and
+     * the creation cooldown status.
      *
      * @return {@code true} if a new {@link Enemy} can be created, otherwise
      * {@code false}.
+     * @throws IllegalStateException If the {@link GameManager} is not in the
+     * {@code RUNNING} state.
      */
     public boolean canCreateEnemy() {
         ensureRunning("canCreateEnemy");
 
-        System.out.println("Enemies: " + enemies.size()
+        int enemyCount = repository.countEnemies();
+
+        System.out.println("Enemies: " + enemyCount
                 + " | Elapsed Cooldown Time: " + elapsedCreationCooldownMs
                 + " | On Cooldown: " + isOnCreationCooldown());
 
-        return enemies.size() < MAX_ENEMY_COUNT && !isOnCreationCooldown();
+        return enemyCount < MAX_ENEMY_COUNT && !isOnCreationCooldown();
     }
 
     /**
-     * Adds a new {@link Enemy} instance to the managed list.
+     * Adds a specific, pre-built {@link Enemy} instance to the managed
+     * collection. The enemy is added only if creation is currently allowed by
+     * {@link #canCreateEnemy()}.
      *
-     * @param enemy The new enemy.
+     * @param enemy The new enemy instance to add.
+     * @throws IllegalStateException If the {@link GameManager} is not in the
+     * {@code RUNNING} state.
      */
     public void addEnemy(final Enemy enemy) {
         ensureRunning("addEnemy");
         updateEnemyCreationCooldownTimer();
 
         if (canCreateEnemy()) {
-            enemies.add(enemy);
+            repository.addEnemy(enemy);
         }
     }
 
+    // TODO: Rework this
     /**
-     * Creates a random {@link Enemy} (if allowed) and adds it to the managed
-     * list.
+     * Creates a new random {@link Enemy} (type and position) if allowed by
+     * {@link #canCreateEnemy()} and adds it to the collection.
+     * <p>
+     * After successful creation, the enemy cooldown is activated.
      *
-     * @param player The {@link Player} the {@link Enemy} will target.
+     * @param player The {@link Player} entity that the newly created
+     * {@link Enemy} will target.
+     * @throws IllegalStateException If the {@link GameManager} is not in the
+     * {@code RUNNING} state.
      */
     public void createRandomEnemy(final Player player) {
         ensureRunning("createRandomEnemy");
@@ -187,7 +206,7 @@ public class EnemyManager implements Updateable {
 
             newEnemy.setVelocityX(moveLeft ? -xMoveSpeed : xMoveSpeed);
 
-            enemies.add(newEnemy);
+            repository.addEnemy(newEnemy);
 
             isOnCreationCooldown = true;
             elapsedCreationCooldownMs = 0;
@@ -196,7 +215,17 @@ public class EnemyManager implements Updateable {
 
     // ----- OVERRIDDEN METHODS -----
     /**
-     * Updates all managed objects and the current game state.
+     * The primary game loop method. Updates the enemy system by:
+     * <ol>
+     * <li>Tracking delta time for cooldowns.</li>
+     * <li>Attempting to
+     * {@link #createRandomEnemy(Player) create a new enemy}.</li>
+     * <li>Calling the {@link #updateEnemies() update logic} for all active
+     * entities.</li>
+     * </ol>
+     *
+     * @throws IllegalStateException If the {@link GameManager} is not in the
+     * {@code RUNNING} state.
      */
     @Override
     public void update() {
@@ -224,8 +253,11 @@ public class EnemyManager implements Updateable {
     }
 
     /**
-     * Updates the attack cooldown timer. This tracks how much time has passed
-     * since the last enemy was created.
+     * Updates the enemy creation cooldown timer based on the elapsed time since
+     * the last frame ({@code deltaTime}).
+     * <p>
+     * This method tracks how much time has passed and disables the
+     * {@code isOnCreationCooldown} flag when the full duration is reached.
      */
     private void updateEnemyCreationCooldownTimer() {
         if (isOnCreationCooldown) {
@@ -244,21 +276,51 @@ public class EnemyManager implements Updateable {
     }
 
     /**
-     * Updates the list of managed enemies and removes any defeated enemies.
+     * Orchestrates the update cycle for all active enemies.
+     * <p>
+     * Iterates over the enemy collection to call {@link Enemy#update()} on each
+     * entity, then calls {@link #cleanupEnemies()} to remove defeated or
+     * off-screen enemies.
+     *
+     * @throws IllegalStateException If the {@link GameManager} is not in the
+     * {@code RUNNING} state.
      */
     private void updateEnemies() {
         ensureRunning("updateEnemies");
 
-        if (enemies.isEmpty()) {
-            return;
+        // The individual enemy objects are mutated via their own update methods.
+        Set<Enemy> activeEnemies = repository.getEnemies();
+
+        for (Enemy enemy : activeEnemies) {
+            enemy.update();
         }
 
-        enemies.removeIf(enemy -> {
-            enemy.update();
-            return enemy.getCurrentHitPoints() <= 0;
-        });
+        // Removal is delegated to the repository.
+        cleanupEnemies();
     }
 
+    /**
+     * Defines the criteria for removing enemies from the collection and
+     * delegates the mutation (removal) task to the repository.
+     * <p>
+     * Enemies are removed if they have
+     * {@link Enemy#isFullyOutsidePanel() moved fully off-screen} or are
+     * {@link Enemy#getCurrentHitPoints() defeated} (HP <= 0).
+     */
+    private void cleanupEnemies() {
+        Predicate<Enemy> cleanupFilter = enemy
+                -> enemy.isFullyOutsidePanel()
+                || enemy.getCurrentHitPoints() <= 0;
+
+        repository.removeIf(cleanupFilter);
+    }
+
+    /**
+     * Generates a random {@link Point} within the defined spawn boundaries of
+     * the game frame.
+     *
+     * @return A random {@link Point} where a new enemy can be spawned.
+     */
     private Point getRandomSpawnPoint() {
         int x = random.nextInt(GameFrame.FRAME_HEIGHT);
         int y = random.nextInt(GameFrame.FRAME_HEIGHT * 1 / 5, GameFrame.FRAME_HEIGHT * 3 / 5);

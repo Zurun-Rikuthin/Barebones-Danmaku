@@ -13,7 +13,11 @@ import javax.swing.JToggleButton;
 import com.rikuthin.loaders.ImageLoader;
 
 /**
- * Utility class for creating various buttons in the UI.
+ * The {@code ButtonUtils} class provides a collection of {@code static} utility methods
+ * for creating buttons from the {@code javax.swing} package to be used in other
+ * UI elements.
+ * <p>
+ * This class cannot be instantiated.
  */
 public class ButtonUtils {
 
@@ -22,13 +26,17 @@ public class ButtonUtils {
     }
 
     /**
-     * Creates a new {@link JButton} that's labelled with/displays an image/icon.
+     * Creates a new {@link JButton} that's labelled with/displays an
+     * image/icon.
      *
-     * @param imageFilepath The file path for the image used for the button's icon.
+     * @param imageFilepath The file path for the image used for the button's
+     * icon.
      * @param buttonWidth The width of the button in pixels.
      * @param buttonHeight The height of the button in pixels.
-     * @param enabled {@code true} if the button is enabled by default, {@code false} otherwise.
-     * @param actionListener The {@link ActionListener} to be added to the button.
+     * @param enabled {@code true} if the button is enabled by default,
+     * {@code false} otherwise.
+     * @param actionListener The {@link ActionListener} to be added to the
+     * button.
      * @return The configured button.
      */
     public static JButton createButtonWithIcon(
@@ -37,11 +45,11 @@ public class ButtonUtils {
             final int buttonHeight,
             boolean enabled,
             final ActionListener actionListener
-        ) {
+    ) {
         JButton button = createGenericButton(new JButton(), buttonWidth, buttonHeight, enabled, actionListener);
         try {
             BufferedImage image = ImageLoader.loadBufferedImage(imageFilepath);
-            button.setIcon(new ImageIcon (image));
+            button.setIcon(new ImageIcon(image));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,14 +58,17 @@ public class ButtonUtils {
     }
 
     /**
-     * Creates a new {@link JButton} that's labelled with the specified text and font.
+     * Creates a new {@link JButton} that's labelled with the specified text and
+     * font.
      *
      * @param text The text displayed on the button.
      * @param font The {@link Font} to be used on the button.
      * @param buttonWidth The width of the button in pixels.
      * @param buttonHeight The height of the button in pixels.
-     * @param enabled {@code true} if the button is enabled by default, {@code false} otherwise.
-     * @param actionListener The {@link ActionListener} to be added to the button.
+     * @param enabled {@code true} if the button is enabled by default,
+     * {@code false} otherwise.
+     * @param actionListener The {@link ActionListener} to be added to the
+     * button.
      * @return The configured button.
      */
     public static JButton createButtonWithText(final String text, final Font font, final int buttonWidth, final int buttonHeight, boolean enabled, final ActionListener actionListener) {
@@ -72,14 +83,17 @@ public class ButtonUtils {
     }
 
     /**
-     * Creates a new {@link JToggleButton} that's labelled with the specified text.
+     * Creates a new {@link JToggleButton} that's labelled with the specified
+     * text.
      *
      * @param text The text displayed on the button.
      * @param font The {@link Font} to be used on the button.
      * @param buttonWidth The width of the button in pixels.
      * @param buttonHeight The height of the button in pixels.
-     * @param enabled {@code true} if the button is enabled by default, {@code false} otherwise.
-     * @param actionListener The {@link ActionListener} to be added to the button.
+     * @param enabled {@code true} if the button is enabled by default,
+     * {@code false} otherwise.
+     * @param actionListener The {@link ActionListener} to be added to the
+     * button.
      * @return The configured button.
      */
     public static JToggleButton createToggleButtonWithText(final String text, final Font font, final int buttonWidth, final int buttonHeight, boolean enabled, final ActionListener actionListener) {
@@ -102,8 +116,10 @@ public class ButtonUtils {
      * {@link JToggleButton}).
      * @param buttonWidth The width of the button in pixels.
      * @param buttonHeight The height of the button in pixles.
-     * @param enabled {@code true} if the button is enabled by default, {@code false} otherwise.
-     * @param actionListener The {@link ActionListener} to be added to the button.
+     * @param enabled {@code true} if the button is enabled by default,
+     * {@code false} otherwise.
+     * @param actionListener The {@link ActionListener} to be added to the
+     * button.
      * @return The configured button.
      */
     private static <T extends AbstractButton> T createGenericButton(T button, int buttonWidth, int buttonHeight, boolean enabled, ActionListener actionListener) {

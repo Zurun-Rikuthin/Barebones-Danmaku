@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 import com.rikuthin.graphics.GameFrame;
 
 /**
- * The main entry point of the programme. This class should not be instantiated.
+ * The main entry point of the programme. This class cannot be instantiated.
  */
 public class App {
 

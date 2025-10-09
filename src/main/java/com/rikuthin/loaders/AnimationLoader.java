@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static com.rikuthin.App.FRAME_RATE_MS;
-import com.rikuthin.data.AnimationTemplateRepository;
+import com.rikuthin.data.assets.AnimationTemplateRegistry;
 import com.rikuthin.graphics.animations.AnimationFrame;
 import com.rikuthin.graphics.animations.AnimationTemplate;
 import com.rikuthin.utility.ImageUtils;
@@ -25,11 +25,6 @@ import com.rikuthin.utility.ImageUtils;
 public class AnimationLoader {
 
     // ----- STATIC VARIABLES -----
-    /**
-     * The repository instance used to access and mutate the collection of
-     * loaded animations.
-     */
-    private static final AnimationTemplateRepository repository = AnimationTemplateRepository.getInstance();
     /**
      * Base directory where animation image assets are stored, relative to the
      * classpath.
@@ -155,7 +150,7 @@ public class AnimationLoader {
                 String animationKey = fileNameOnly.substring(0, fileNameOnly.lastIndexOf('.'));
 
                 // Add the animation to the AnimationManager
-                repository.addAnimation(animationKey, animationTemplate);
+                AnimationTemplateRegistry.registerTemplate(animationKey, animationTemplate);
 
                 System.out.printf("Loaded animation <%s> with <%d> frames.%n", animationKey, frames.size());
             }

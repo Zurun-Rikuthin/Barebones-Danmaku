@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Set;
 
-import com.rikuthin.data.BulletRepository;
-import com.rikuthin.data.EnemyRepository;
+import com.rikuthin.data.entities.BulletRepository;
+import com.rikuthin.data.entities.EnemyRepository;
 import com.rikuthin.entities.Player;
 import com.rikuthin.entities.bullets.Bullet;
 import com.rikuthin.entities.enemies.Enemy;
-import com.rikuthin.managers.GameManager;
+import com.rikuthin.services.core.GameManager;
 
 /**
  * A component that displays all the game entities
@@ -49,14 +49,14 @@ public class GamePanel extends Subpanel {
             player.safeRender(g2d);
         }
 
-        Set<Enemy> enemies = EnemyRepository.getInstance().getEnemies();
+        Set<Enemy> enemies = EnemyRepository.getEnemies();
         if (enemies != null) {
             for (Enemy e : enemies) {
                 e.safeRender(g2d);
             }
         }
 
-        Set<Bullet> bullets = BulletRepository.getInstance().getBullets();
+        Set<Bullet> bullets = BulletRepository.getBullets();
         if (bullets != null) {
             for (Bullet b : bullets) {
                 b.safeRender(g2d);

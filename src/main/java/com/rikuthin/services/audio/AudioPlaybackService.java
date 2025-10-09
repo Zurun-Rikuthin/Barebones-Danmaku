@@ -1,56 +1,36 @@
-package com.rikuthin.managers;
+package com.rikuthin.services.audio;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-import com.rikuthin.data.AudioRepository;
-import com.rikuthin.loaders.AudioLoader;
+import com.rikuthin.data.assets.AudioRegistry;
 
 /**
- * The {@code AudioManager} is the primary service responsible for the playback
- * behaviour of all audio {@link Clip} objects stored within the
- * {@link AudioRepository}.
+ * The {@code AudioPlaybackService} controls the playback behaviour of all audio
+ * {@link Clip} objects stored within the {@link AudioRegistry}.
  */
-public class AudioManager {
+public class AudioPlaybackService {
 
     // ----- STATIC VARIABLES -----
     /**
-     * Singleton instance of {@link AudioManager}.
-     */
-    private static AudioManager INSTANCE;
-
-    /**
-     * The repository instance used to access and mutate the collection of
-     * loaded audio files.
-     */
-    private static final AudioRepository REPOSITORY = AudioRepository.getInstance();
-
-    // ----- INSTANCE VARIABLES -----
-    /**
      * Volume control (range: 0.0 to 1.0).
      */
-    private float volume;
+    private static float volume = 0.5f;
 
     // ----- CONSTRUCTORS -----
     /**
-     * Private constructor to enforce the singleton pattern.
-     */
-    private AudioManager() {
-        volume = 0.5f; // Default volume
-        AudioLoader.loadAudioFromJson(); // TODO: Change this to establish a proper asset loading order
-    }
-
-    // ----- SINGLETON GETTER -----
-    /**
-     * Returns the singleton instance of the {@link AudioManager}.
+     * Private constructor to <b>enforce the utility class pattern</b> and
+     * prevent instantiation.
      *
-     * @return The single instance of {@link AudioManager}.
+     * @throws UnsupportedOperationException if an attempt to call this method
+     * is made.
      */
-    public static AudioManager getINSTANCE() {
-        if (INSTANCE == null) {
-            INSTANCE = new AudioManager();
-        }
-        return INSTANCE;
+    private AudioPlaybackService() {
+        throw new UnsupportedOperationException(
+                String.format(
+                        "%s: This utility class cannot be instantiated. Use its methods directly.",
+                        this.getClass().getName())
+        );
     }
 
     // ----- GETTERS -----
@@ -59,7 +39,7 @@ public class AudioManager {
      *
      * @return The volume level (range: 0.0 to 1.0).
      */
-    public float getVolume() {
+    public static float getVolume() {
         return volume;
     }
 
@@ -70,8 +50,8 @@ public class AudioManager {
      * @return {@code true} if the clip is currently running, {@code false}
      * otherwise.
      */
-    public boolean isClipPlaying(String key) {
-        Clip clip = REPOSITORY.getClip(key);
+    public static boolean isClipPlaying(String key) {
+        Clip clip = AudioRegistry.getClip(key);
         return clip != null && clip.isRunning();
     }
 
@@ -81,8 +61,8 @@ public class AudioManager {
      *
      * @param volume The volume level (range: 0.0 to 1.0).
      */
-    public void setVolume(float volume) {
-        this.volume = Math.clamp(volume, 0.0f, 1.0f);
+    public static void setVolume(float volume) {
+        volume = Math.clamp(volume, 0.0f, 1.0f);
         applyVolumeToAllClips();
     }
 
@@ -93,8 +73,8 @@ public class AudioManager {
      * @param key The key of the sound clip.
      * @param looping If {@code true}, the sound will loop continuously.
      */
-    public void playClip(String key, boolean looping) {
-        Clip clip = REPOSITORY.getClip(key);
+    public static void playClip(String key, boolean looping) {
+        Clip clip = AudioRegistry.getClip(key);
         if (clip != null) {
             clip.setFramePosition(0);
             if (looping) {
@@ -114,8 +94,8 @@ public class AudioManager {
      * @param looping If {@code true}, the sound will loop continuously.
      * @param volume The volume level for this playback (range: 0.0 to 1.0).
      */
-    public void playClip(String key, boolean looping, float volume) {
-        Clip clip = REPOSITORY.getClip(key);
+    public static void playClip(String key, boolean looping, float volume) {
+        Clip clip = AudioRegistry.getClip(key);
         if (clip != null) {
             clip.setFramePosition(0);
             if (looping) {
@@ -144,8 +124,8 @@ public class AudioManager {
      *
      * @param key The key of the sound clip.
      */
-    public void stopClip(String key) {
-        Clip clip = REPOSITORY.getClip(key);
+    public static void stopClip(String key) {
+        Clip clip = AudioRegistry.getClip(key);
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
@@ -154,8 +134,8 @@ public class AudioManager {
     /**
      * Stops all currently playing sound clips.
      */
-    public void stopAll() {
-        for (Clip clip : REPOSITORY.getAllClips().values()) {
+    public static void stopAll() {
+        for (Clip clip : AudioRegistry.getAllClips().values()) {
             if (clip.isRunning()) {
                 clip.stop();
             }
@@ -166,8 +146,8 @@ public class AudioManager {
     /**
      * Adjusts the volume for all loaded clips.
      */
-    private void applyVolumeToAllClips() {
-        for (Clip clip : REPOSITORY.getAllClips().values()) {
+    private static void applyVolumeToAllClips() {
+        for (Clip clip : AudioRegistry.getAllClips().values()) {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             if (gainControl != null) {
                 float min = gainControl.getMinimum();

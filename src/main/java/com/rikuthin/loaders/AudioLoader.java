@@ -19,23 +19,18 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import com.rikuthin.data.AudioRepository;
+import com.rikuthin.data.assets.AudioRegistry;
 
 /**
  * Utility class responsible for the low-level loading of {@link Clip} audio
  * resources from the file system or classpath.
  * <p>
  * This class ensures that audio files are correctly read, converted to a
- * supported format (if necessary), and stored in the {@link AudioRepository}.
+ * supported format (if necessary), and stored in the {@link AudioRegistry}.
  */
 public class AudioLoader {
 
     // ----- STATIC VARIABLES -----
-    /**
-     * The repository instance used to access and mutate the collection of
-     * loaded audio files.
-     */
-    private static final AudioRepository REPOSITORY = AudioRepository.getInstance();
     /**
      * Directory where sound files are stored, relative to the classpath.
      */
@@ -55,7 +50,7 @@ public class AudioLoader {
     // ----- BUSINESS LOGIC METHODS -----
     /**
      * Reads audio clip configuration from a JSON file and loads all defined
-     * audio assets into the {@link AudioRepository}.
+     * audio assets into the {@link AudioRegistry}.
      */
     public static void loadAudioFromJson() {
         // TODO: Replace hardcoding with config file logic.
@@ -132,7 +127,7 @@ public class AudioLoader {
     // ----- HELPER METHODS -----
     /**
      * Loads an audio clip from the specified file and stores it in the
-     * {@link AudioRepository}.
+     * {@link AudioRegistry}.
      *
      * @param key The key under which the clip is stored.
      * @param fileName The file name of the audio file.
@@ -151,7 +146,7 @@ public class AudioLoader {
         }
 
         try {
-            REPOSITORY.addClip(key, loadClipFromAudioFile(SOUNDS_DIRECTORY + fileName, key));
+            AudioRegistry.registerClip(key, loadClipFromAudioFile(SOUNDS_DIRECTORY + fileName, key));
         } catch (IOException e) {
             System.err.println("Failed to load clip (I/O error): " + fileName + " - " + e.getMessage());
         } catch (UnsupportedAudioFileException e) {

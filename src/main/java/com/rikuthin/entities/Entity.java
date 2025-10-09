@@ -10,7 +10,7 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import com.rikuthin.data.AnimationTemplateRepository;
+import com.rikuthin.data.assets.AnimationTemplateRegistry;
 import com.rikuthin.graphics.animations.AnimationInstance;
 import com.rikuthin.graphics.animations.AnimationTemplate;
 import com.rikuthin.interfaces.Renderable;
@@ -57,7 +57,7 @@ public abstract class Entity implements Updateable, Renderable {
 
     /**
      * The currently active animation. Set through a query to
-     * {@link AnimationTemplateRepository}.
+     * {@link AnimationTemplateRegistry}.
      */
     protected AnimationInstance currentAnimation;
 
@@ -157,7 +157,7 @@ public abstract class Entity implements Updateable, Renderable {
 
     /**
      * Returns the set of keys this entity can use to query
-     * {@link AnimationTemplateRepository} for an {@link AnimationTemplate}.
+     * {@link AnimationTemplateRegistry} for an {@link AnimationTemplate}.
      *
      * @return The set of animation keys.
      */
@@ -275,12 +275,12 @@ public abstract class Entity implements Updateable, Renderable {
 
     /**
      * Sets the set of keys this entity can query
-     * {@link AnimationTemplateRepository} with.
+     * {@link AnimationTemplateRegistry} with.
      *
      * @param animationKeys The set of animation keys.
      * @throws IllegalArgumentException if, when a non-{@code null} set is
      * passed, it contains {@code null} or blank keys, or contains a key that
-     * doesn't exist in {@link AnimationTemplateRepository}'s key set.
+     * doesn't exist in {@link AnimationTemplateRegistry}'s key set.
      */
     public final void setAnimationKeys(final Set<String> animationKeys) throws IllegalArgumentException {
         if (animationKeys == null) {
@@ -295,7 +295,7 @@ public abstract class Entity implements Updateable, Renderable {
                         this.getClass().getName()
                 ));
             }
-            if (AnimationTemplateRepository.getInstance().getAnimation(key) == null) {
+            if (AnimationTemplateRegistry.getTemplate(key) == null) {
                 throw new IllegalArgumentException(String.format(
                         "%s: Keys must exist within AnimationManager's key set.",
                         this.getClass().getName()
@@ -313,14 +313,14 @@ public abstract class Entity implements Updateable, Renderable {
      * string.
      * <p>
      * Valid strings must be a {@link AnimationTemplate} key within
-     * {@link AnimationTemplateRepository} and must exist within the entity's
+     * {@link AnimationTemplateRegistry} and must exist within the entity's
      * current key set.
      *
      * @param key The key identifying the animation.
      * @throws IllegalArgumentException if the provided key (when not
      * {@code null}) is blank, is not within the entity's animation key set, or
      * does not map to a loaded template within
-     * {@link AnimationTemplateRepository}.
+     * {@link AnimationTemplateRegistry}.
      */
     public final void setAnimation(final String key) throws IllegalArgumentException {
         if (key == null) {
@@ -343,7 +343,7 @@ public abstract class Entity implements Updateable, Renderable {
             ));
         }
 
-        AnimationTemplate template = AnimationTemplateRepository.getInstance().getAnimation(key);
+        AnimationTemplate template = AnimationTemplateRegistry.getTemplate(key);
         if (template == null) {
             throw new IllegalArgumentException(String.format(
                     "%s: Could not find template in AnimationManager mapped to key <'%s'>.",
@@ -474,11 +474,11 @@ public abstract class Entity implements Updateable, Renderable {
 
     /**
      * Adds a new key to the set of keys this entity can query
-     * {@link AnimationTemplateRepository} with.
+     * {@link AnimationTemplateRegistry} with.
      *
      * @param key The new animation key.
      * @throws IllegalArgumentException if a {@code null} or blank key is
-     * passed, or the key doesn't exist in {@link AnimationTemplateRepository}'s
+     * passed, or the key doesn't exist in {@link AnimationTemplateRegistry}'s
      * key set.
      */
     public void addAnimationKey(final String key) throws IllegalArgumentException {
@@ -488,7 +488,7 @@ public abstract class Entity implements Updateable, Renderable {
                     this.getClass().getName()
             ));
         }
-        if (AnimationTemplateRepository.getInstance().getAnimation(key) == null) {
+        if (AnimationTemplateRegistry.getTemplate(key) == null) {
             throw new IllegalArgumentException(String.format(
                     "%s: Keys must exist within AnimationManager's key set.",
                     this.getClass().getName()
@@ -651,7 +651,7 @@ public abstract class Entity implements Updateable, Renderable {
 
         /**
          * Sets the set of keys this entity can query
-         * {@link AnimationTemplateRepository} with.
+         * {@link AnimationTemplateRegistry} with.
          *
          * @param animationKeys The set of animation keys.
          * @return The builder instance.

@@ -1,12 +1,11 @@
-package com.rikuthin.managers;
+package com.rikuthin.services.entity;
 
 import java.awt.Point;
 import java.lang.StackWalker.StackFrame;
 import java.util.Random;
-import java.util.Set;
 import java.util.function.Predicate;
 
-import com.rikuthin.data.EnemyRepository;
+import com.rikuthin.data.entities.EnemyRepository;
 import com.rikuthin.entities.Player;
 import com.rikuthin.entities.enemies.BlueMage;
 import com.rikuthin.entities.enemies.Enemy;
@@ -15,6 +14,7 @@ import com.rikuthin.entities.enemies.RedMage;
 import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.interfaces.Updateable;
+import com.rikuthin.services.core.GameManager;
 
 /**
  * The {@code EnemyManager} is the primary service responsible for the **active
@@ -38,11 +38,6 @@ public class EnemyManager implements Updateable {
     private static final long ENEMY_CREATION_COOLDOWN_MS = 5000; // 5 seconds
 
     // ----- INSTANCE VARIABLES -----
-    /**
-     * The repository instance used to access and mutate the collection of
-     * active enemies.
-     */
-    private final EnemyRepository repository;
     /**
      * Random generator used by various methods.
      */
@@ -68,8 +63,8 @@ public class EnemyManager implements Updateable {
      * of the {@link EnemyRepository} to establish its dependency. Initializes
      * the manager for game start.
      */
+    // todo: rework this
     public EnemyManager() {
-        repository = EnemyRepository.getInstance();
         init();
     }
 
@@ -121,7 +116,6 @@ public class EnemyManager implements Updateable {
      */
     public final void init() {
         random = new Random();
-        repository.clear();
         isOnCreationCooldown = false;
         elapsedCreationCooldownMs = 0;
         lastUpdateTime = 0;
@@ -139,7 +133,7 @@ public class EnemyManager implements Updateable {
     public boolean canCreateEnemy() {
         ensureRunning("canCreateEnemy");
 
-        int enemyCount = repository.countEnemies();
+        int enemyCount = EnemyRepository.size();
 
         System.out.println("Enemies: " + enemyCount
                 + " | Elapsed Cooldown Time: " + elapsedCreationCooldownMs
@@ -162,7 +156,7 @@ public class EnemyManager implements Updateable {
         updateEnemyCreationCooldownTimer();
 
         if (canCreateEnemy()) {
-            repository.addEnemy(enemy);
+            EnemyRepository.addEnemy(enemy);
         }
     }
 
@@ -206,7 +200,7 @@ public class EnemyManager implements Updateable {
 
             newEnemy.setVelocityX(moveLeft ? -xMoveSpeed : xMoveSpeed);
 
-            repository.addEnemy(newEnemy);
+            EnemyRepository.addEnemy(newEnemy);
 
             isOnCreationCooldown = true;
             elapsedCreationCooldownMs = 0;
@@ -288,10 +282,7 @@ public class EnemyManager implements Updateable {
     private void updateEnemies() {
         ensureRunning("updateEnemies");
 
-        // The individual enemy objects are mutated via their own update methods.
-        Set<Enemy> activeEnemies = repository.getEnemies();
-
-        for (Enemy enemy : activeEnemies) {
+        for (Enemy enemy : EnemyRepository.getEnemies()) {
             enemy.update();
         }
 
@@ -312,7 +303,7 @@ public class EnemyManager implements Updateable {
                 -> enemy.isFullyOutsidePanel()
                 || enemy.getCurrentHitPoints() <= 0;
 
-        repository.removeIf(cleanupFilter);
+        EnemyRepository.removeIf(cleanupFilter);
     }
 
     /**

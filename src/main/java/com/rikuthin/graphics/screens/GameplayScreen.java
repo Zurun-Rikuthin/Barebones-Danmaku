@@ -11,8 +11,8 @@ import com.rikuthin.entities.Player;
 import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.graphics.screens.subpanels.InfoPanel;
-import com.rikuthin.managers.AudioManager;
-import com.rikuthin.managers.GameManager;
+import com.rikuthin.services.audio.AudioPlaybackService;
+import com.rikuthin.services.core.GameManager;
 
 /**
  * The main gameplay screen where the game logic and rendering occur. Handles
@@ -74,9 +74,8 @@ public final class GameplayScreen extends Screen {
         keyStates = new HashMap<>();
         addKeyListener(createKeyListener());
 
-        AudioManager soundManager = AudioManager.getINSTANCE();
-        soundManager.stopAll();
-        soundManager.playClip("goblinsDance", true);
+        AudioPlaybackService.stopAll();
+        AudioPlaybackService.playClip("goblinsDance", true);
     }
 
     // ----- GETTERS -----

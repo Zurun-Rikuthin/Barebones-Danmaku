@@ -1,4 +1,4 @@
-package com.rikuthin.managers;
+package com.rikuthin.services.core;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 
 import javax.swing.Timer;
 
-import com.rikuthin.data.BulletRepository;
-import com.rikuthin.data.EnemyRepository;
+import com.rikuthin.data.entities.BulletRepository;
+import com.rikuthin.data.entities.EnemyRepository;
 import com.rikuthin.entities.Player;
 import com.rikuthin.entities.bullets.BulletSpawner;
 import com.rikuthin.graphics.GameFrame;
@@ -18,6 +18,8 @@ import com.rikuthin.graphics.dialogue.PauseMenuDialogue;
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.graphics.screens.subpanels.InfoPanel;
 import com.rikuthin.interfaces.Updateable;
+import com.rikuthin.services.entity.BulletManager;
+import com.rikuthin.services.entity.EnemyManager;
 
 /**
  * A manager class (that got way out of control) to manager the entire game.
@@ -256,8 +258,8 @@ public class GameManager implements Updateable {
             gamePanel = null;
             infoPanel = null;
             player = null;
-            EnemyRepository.getInstance().clear();
-            BulletRepository.getInstance().clear();
+            EnemyRepository.clear();
+            BulletRepository.clear();
         }
     }
 

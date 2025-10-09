@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import com.rikuthin.graphics.UIConstants;
-import com.rikuthin.managers.GameManager;
+import com.rikuthin.services.core.GameManager;
 import com.rikuthin.utility.ButtonUtils;
+import com.rikuthin.utility.FontUtils;
 
 /**
  * The InfoPanel displays game information (e.g., player health, elapsed time,
@@ -100,23 +100,23 @@ public final class InfoPanel extends Subpanel {
         topRowLabels.setLayout(new BoxLayout(topRowLabels, BoxLayout.Y_AXIS));
 
         waveCounterLabel = new JLabel("Wave <lorem ipsum>");
-        waveCounterLabel.setFont(UIConstants.BODY_FONT);
+        waveCounterLabel.setFont(FontUtils.BODY_FONT);
 
         gameplayTimerLabel = new JLabel("HH:MM.SS");
-        gameplayTimerLabel.setFont(UIConstants.BODY_FONT);
+        gameplayTimerLabel.setFont(FontUtils.BODY_FONT);
 
         pauseButton = ButtonUtils.createButtonWithIcon("/images/icons/pause-button.png", 64, 64, false, GameManager.getInstance()::onPause);
 
         Dimension scoreLabelSize = new Dimension(284, 80);
         highscoreLabel = new JLabel("Highscore: <lorem ipsum>");
-        highscoreLabel.setFont(UIConstants.BODY_FONT);
+        highscoreLabel.setFont(FontUtils.BODY_FONT);
         highscoreLabel.setPreferredSize(scoreLabelSize);
         highscoreLabel.setMinimumSize(scoreLabelSize);
         highscoreLabel.setMaximumSize(scoreLabelSize);
         highscoreLabel.setBackground(Color.WHITE);
 
         scoreLabel = new JLabel("Score: <lorem ipsum>");
-        scoreLabel.setFont(UIConstants.BODY_FONT);
+        scoreLabel.setFont(FontUtils.BODY_FONT);
         scoreLabel.setPreferredSize(scoreLabelSize);
         scoreLabel.setMinimumSize(scoreLabelSize);
         scoreLabel.setMaximumSize(scoreLabelSize);
@@ -146,7 +146,7 @@ public final class InfoPanel extends Subpanel {
         infoTextArea.setBackground(Color.WHITE);
         infoTextArea.setForeground(Color.BLACK);
         infoTextArea.setEditable(false);
-        infoTextArea.setFont(UIConstants.BODY_FONT);
+        infoTextArea.setFont(FontUtils.BODY_FONT);
 
         // ----- Add to topRow -----
         topRowLabels.add(waveCounterLabel);
@@ -179,7 +179,7 @@ public final class InfoPanel extends Subpanel {
     //     // Create the pause button.
     //     pauseMenuButton = createButton(
     //             "PAUSE", buttonFont, 100, 40, true,
-    //             GameManager.getInstance()::onPause
+    //             GameManager::onPause
     //     );
     //     // Create the score and timer labels.
     //     scoreLabel = createStatusLabel();

@@ -12,9 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import com.rikuthin.graphics.GameFrame;
-import com.rikuthin.graphics.UIConstants;
 import com.rikuthin.graphics.screens.MainMenuScreen;
 import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
+import com.rikuthin.utility.FontUtils;
 
 /**
  * A {@link Dialog} window that serves as the game's pause menu.
@@ -68,20 +68,20 @@ public class PauseMenuDialogue extends Dialog {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         menuLabel = new JLabel("PAUSE");
-        menuLabel.setFont(UIConstants.TITLE_FONT);
+        menuLabel.setFont(FontUtils.TITLE_FONT);
         menuLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Initialize buttons with a callback for their respective actions
-        resumeButton = createButtonWithText("RESUME", UIConstants.BUTTON_FONT, 200, 40, true, e -> onResume(onResumeCallback));
+        resumeButton = createButtonWithText("RESUME", FontUtils.BUTTON_FONT, 200, 40, true, e -> onResume(onResumeCallback));
         resumeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        settingsButton = createButtonWithText("SETTINGS", UIConstants.BUTTON_FONT, 200, 40, false, this::onSettings);
+        settingsButton = createButtonWithText("SETTINGS", FontUtils.BUTTON_FONT, 200, 40, false, this::onSettings);
         settingsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        restartButton = createButtonWithText("RESTART", UIConstants.BUTTON_FONT, 200, 40, false, this::onRestart);
+        restartButton = createButtonWithText("RESTART", FontUtils.BUTTON_FONT, 200, 40, false, this::onRestart);
         restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        quitGameButton = createButtonWithText("QUIT GAME", UIConstants.BUTTON_FONT, 200, 40, true, this::onQuit);
+        quitGameButton = createButtonWithText("QUIT GAME", FontUtils.BUTTON_FONT, 200, 40, true, this::onQuit);
         quitGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add spacing between components

@@ -16,10 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.rikuthin.graphics.GameFrame;
-import com.rikuthin.graphics.UIConstants;
 import com.rikuthin.loaders.ImageLoader;
-import com.rikuthin.managers.AudioManager;
+import com.rikuthin.services.audio.AudioPlaybackService;
 import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
+import com.rikuthin.utility.FontUtils;
 
 /**
  * Main menu screen of the game. Provides options to start a new game, view
@@ -30,7 +30,7 @@ public class MainMenuScreen extends Screen {
     // ----- INSTANCE VARIABLES -----
     /**
      * The {@code JLabel} displaying the main title of the game. It is placed in
-     * the {@link #titlePanel} and styled using {@link UIConstants#TITLE_FONT}.
+     * the {@link #titlePanel} and styled using {@link FontUtils#TITLE_FONT}.
      */
     private final JLabel titleLabel;
 
@@ -86,7 +86,7 @@ public class MainMenuScreen extends Screen {
         titlePanel.setOpaque(false);
 
         titleLabel = new JLabel(gameFrame.getTitle(), SwingConstants.CENTER);
-        titleLabel.setFont(UIConstants.TITLE_FONT);
+        titleLabel.setFont(FontUtils.TITLE_FONT);
         titleLabel.setForeground(Color.WHITE);
 
         titlePanel.add(Box.createVerticalStrut(200));  // Add space above the title
@@ -109,7 +109,7 @@ public class MainMenuScreen extends Screen {
         // Create and add buttons
         for (int i = 0; i < labels.length; i++) {
             final boolean enabled = i == 0 || i == 4; // Only enable "START GAME" and "QUIT GAME" for now
-            JButton button = createButtonWithText(labels[i], UIConstants.BUTTON_FONT, 200, 40, enabled, actions[i]);
+            JButton button = createButtonWithText(labels[i], FontUtils.BUTTON_FONT, 200, 40, enabled, actions[i]);
             buttonPanel.add(button);
             buttonPanel.add(Box.createVerticalStrut(10));  // Space between buttons
         }
@@ -121,9 +121,8 @@ public class MainMenuScreen extends Screen {
 
         add(centreWrapper, BorderLayout.CENTER);
 
-        AudioManager soundManager = AudioManager.getINSTANCE();
-        soundManager.stopAll();
-        soundManager.playClip("goblinsDen", true);
+        AudioPlaybackService.stopAll();
+        AudioPlaybackService.playClip("goblinsDen", true);
     }
 
     /**

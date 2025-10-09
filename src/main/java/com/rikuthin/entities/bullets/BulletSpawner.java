@@ -8,8 +8,8 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import com.rikuthin.data.AnimationTemplateRepository;
-import com.rikuthin.data.BulletRepository;
+import com.rikuthin.data.assets.AnimationTemplateRegistry;
+import com.rikuthin.data.entities.BulletRepository;
 import com.rikuthin.entities.Entity;
 import com.rikuthin.graphics.animations.AnimationInstance;
 import com.rikuthin.graphics.animations.AnimationTemplate;
@@ -231,12 +231,12 @@ public class BulletSpawner extends Entity {
     }
 
     /**
-     * Sets the set of keys this entity can query {@link AnimationTemplateRepository} with.
+     * Sets the set of keys this entity can query {@link AnimationTemplateRegistry} with.
      *
      * @param bulletAnimationKeys The set of animation keys.
      * @throws IllegalArgumentException if, when a non-{@code null} set is
      * passed, it contains {@code null} or blank keys, or contains a key that
-     * doesn't exist in {@link AnimationTemplateRepository}'s key set.
+     * doesn't exist in {@link AnimationTemplateRegistry}'s key set.
      */
     public final void setBulletAnimationKeys(final Set<String> bulletAnimationKeys) throws IllegalArgumentException {
         if (bulletAnimationKeys == null) {
@@ -251,7 +251,7 @@ public class BulletSpawner extends Entity {
                         this.getClass().getName()
                 ));
             }
-            if (AnimationTemplateRepository.getInstance().getAnimation(key) == null) {
+            if (AnimationTemplateRegistry.getTemplate(key) == null) {
                 throw new IllegalArgumentException(String.format(
                         "%s: Keys must exist within AnimationManager's key set.",
                         this.getClass().getName()
@@ -269,13 +269,13 @@ public class BulletSpawner extends Entity {
      * string.
      * <p>
      * Valid strings must be a {@link AnimationTemplate} key within
-     * {@link AnimationTemplateRepository} and must exist within the entity's current key
+     * {@link AnimationTemplateRegistry} and must exist within the entity's current key
      * set.
      *
      * @param key The key identifying the animation.
      * @throws IllegalArgumentException if the provided key (when not
      * {@code null}) is blank, is not within the entity's animation key set, or
-     * does not map to a loaded template within {@link AnimationTemplateRepository}.
+     * does not map to a loaded template within {@link AnimationTemplateRegistry}.
      */
     public final void setCurrentBulletAnimationKey(String key) throws IllegalArgumentException {
         if (key == null) {
@@ -298,7 +298,7 @@ public class BulletSpawner extends Entity {
             ));
         }
 
-        AnimationTemplate template = AnimationTemplateRepository.getInstance().getAnimation(key);
+        AnimationTemplate template = AnimationTemplateRegistry.getTemplate(key);
         if (template == null) {
             throw new IllegalArgumentException(String.format(
                     "%s: Could not find template in AnimationManager mapped to key <'%s'>.",
@@ -322,7 +322,7 @@ public class BulletSpawner extends Entity {
         }
 
         AnimationInstance bulletAnimation = new AnimationInstance(
-                AnimationTemplateRepository.getInstance().getAnimation(currentAnimationKey)
+                AnimationTemplateRegistry.getTemplate(currentAnimationKey)
         );
 
         BufferedImage bulletSprite = bulletAnimation.getCurrentFrameImage();
@@ -365,7 +365,7 @@ public class BulletSpawner extends Entity {
                 .animationKeys(bulletAnimationKeys)
                 .currentAnimationKey(currentBulletAnimationKey)
                 .build();
-        BulletRepository.getInstance().addBullet(bullet);
+        BulletRepository.addBullet(bullet);
         return bullet;
     }
 
@@ -548,7 +548,7 @@ public class BulletSpawner extends Entity {
         }
 
         /**
-         * Sets the set of keys this entity can query {@link AnimationTemplateRepository}
+         * Sets the set of keys this entity can query {@link AnimationTemplateRegistry}
          * with.
          *
          * @param bulletAnimationKeys The set of animation keys.
@@ -566,7 +566,7 @@ public class BulletSpawner extends Entity {
          * (non-blank) string.
          * <p>
          * Valid strings must be a {@link AnimationTemplate} key within
-         * {@link AnimationTemplateRepository} and must exist within the entity's current
+         * {@link AnimationTemplateRegistry} and must exist within the entity's current
          * key set.
          *
          * @param key The unique key identifying the animation.

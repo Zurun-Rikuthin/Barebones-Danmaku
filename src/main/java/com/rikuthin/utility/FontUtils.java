@@ -1,22 +1,21 @@
-package com.rikuthin.graphics;
+package com.rikuthin.utility;
 
 import java.awt.Font;
 
-import javax.swing.JButton;
-
 /**
- * A utility class providing centralized access to various constants used by
- * user interface (UI) elements and styling throughout the game.
+ * The {@code FontUtils} class provides centralized access to predefined
+ * {@link Font} objects used by various user interface (UI) elements and
+ * styling.
  * <p>
- * Note: The class cannot be instantiated, nor its members modified as **all**
- * are both {@code static} and {@code final}.
+ * Note: The class cannot be instantiated. Likewise, all members within are both
+ * {@code static} and {@code final}.
  */
-public class UIConstants {
+public class FontUtils {
 
     /**
      * Private constructor to prevent instantiation.
      */
-    private UIConstants() {
+    private FontUtils() {
     }
 
     // TODO: Actually pick out proper fonts instead of pseudo-random placeholders.

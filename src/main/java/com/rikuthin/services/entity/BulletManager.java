@@ -1,13 +1,13 @@
-package com.rikuthin.managers;
+package com.rikuthin.services.entity;
 
 import java.lang.StackWalker.StackFrame;
-import java.util.Set;
 import java.util.function.Predicate;
 
-import com.rikuthin.data.BulletRepository;
+import com.rikuthin.data.entities.BulletRepository;
 import com.rikuthin.entities.Entity;
 import com.rikuthin.entities.bullets.Bullet;
 import com.rikuthin.interfaces.Updateable;
+import com.rikuthin.services.core.GameManager;
 
 /**
  * The {@code BulletManager} is the primary service responsible for the **active
@@ -21,12 +21,6 @@ import com.rikuthin.interfaces.Updateable;
 public class BulletManager implements Updateable {
 
     // ----- INSTANCE VARIABLES -----
-    /**
-     * The repository instance used to access and mutate the collection of
-     * active bullets.
-     */
-    private final BulletRepository repository;
-
     // ----- CONSTRUCTORS -----
     /**
      * Constructs the {@code BulletManager} and retrieves the singleton instance
@@ -34,7 +28,7 @@ public class BulletManager implements Updateable {
      * the manager for game start.
      */
     public BulletManager() {
-        repository = BulletRepository.getInstance();
+        // Todo: Rework this
         init();
     }
 
@@ -47,7 +41,7 @@ public class BulletManager implements Updateable {
      * bullets, and resets all cooldown tracking variables.
      */
     public final void init() {
-        repository.clear();
+        BulletRepository.clear();
     }
 
     // Commenting this out for now, but leaving here in case I want to create rules for
@@ -83,12 +77,15 @@ public class BulletManager implements Updateable {
 
     // ----- HELPER METHODS -----
     /**
-     * Ensures the {@link GameManager} is in the {@code RUNNING} state (i.e., a game is active).
-     * 
-     * @param methodName The name of the method trying to run while the manager is in the wrong state.
+     * Ensures the {@link GameManager} is in the {@code RUNNING} state (i.e., a
+     * game is active).
+     *
+     * @param methodName The name of the method trying to run while the manager
+     * is in the wrong state.
      * @throws IllegalStateException If the {@link GameManager} is not in the
      * {@code RUNNING} state.
      */
+    // Todo: extract this
     private void ensureRunning(String methodName) {
         if (!GameManager.getInstance().isRunning()) {
             StackWalker walker = StackWalker.getInstance();
@@ -104,9 +101,11 @@ public class BulletManager implements Updateable {
     }
 
     /**
-     * Orchestrates the update cycle for all bullets within the {@link BulletRepository}.
+     * Orchestrates the update cycle for all bullets within the
+     * {@link BulletRepository}.
      * <p>
-     * Calls the {@link Bullet#update()} method for each {@link Bullet} instance.
+     * Calls the {@link Bullet#update()} method for each {@link Bullet}
+     * instance.
      *
      * @throws IllegalStateException If the {@link GameManager} is not in the
      * {@code RUNNING} state.
@@ -114,10 +113,7 @@ public class BulletManager implements Updateable {
     private void updateBullets() {
         ensureRunning("updateBullets");
 
-        // The individual bullet objects are mutated via their own update methods.
-        Set<Bullet> activeBullets = repository.getBullets();
-
-        for (Bullet bullet : activeBullets) {
+        for (Bullet bullet : BulletRepository.getBullets()) {
             bullet.update();
         }
     }
@@ -131,12 +127,12 @@ public class BulletManager implements Updateable {
      * </ul>
      * <p>
      * This is then passed to {@link BulletRepository#removeIf()}, which removes
-     * any/all bullets matching said criteria from itself.
-     * (Note: Set criteria may be subject to change in future builds/replaced with a better system.)
+     * any/all bullets matching said criteria from itself. (Note: Set criteria
+     * may be subject to change in future builds/replaced with a better system.)
      */
     private void cleanupBullets() {
         Predicate<Bullet> cleanupFilter = Entity::isFullyOutsidePanel;
 
-        repository.removeIf(cleanupFilter);
+        BulletRepository.removeIf(cleanupFilter);
     }
 }

@@ -4,11 +4,12 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
- * The {@code ImageUtils} class provides a collection of static utility methods
+ * The {@code ImageUtils} class provides a collection of {@code static} utility methods
  * for the manipulation and processing of {@link BufferedImage} objects, such as
  * copying and scaling.
  * <p>
- * This class does not handle image loading (I/O) or resource management.
+ * This class does not handle image loading (I/O) or resource management, nor
+ * can it be instantiated.
  */
 public class ImageUtils {
 

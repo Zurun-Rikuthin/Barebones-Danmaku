@@ -16,14 +16,35 @@ import com.rikuthin.graphics.UIConstants;
 import com.rikuthin.graphics.screens.MainMenuScreen;
 import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
 
+/**
+ * A {@link Dialog} window that serves as the game's pause menu.
+ */
 public class PauseMenuDialogue extends Dialog {
-
+    // TODO: Stylization, implement remaining buttons, etc. ='(
+    /**
+     * Reference to the {@link GameFrame}
+     */
     private final GameFrame gameFrame;
+    /**
+     * The {@link JLabel} that labels the pause menu itself
+     */
     private final JLabel menuLabel;
+    /**
+     * The {@link JButton} that, when pressed, resumes the game.
+     */
     private final JButton resumeButton;
+    /**
+     * The {@link JButton} that, when pressed, opens the settings menu.
+     */
     private final JButton settingsButton;
+    /**
+     * The {@link JButton} that, when pressed, restarts the game.
+     */
     private final JButton restartButton;
-    private final JButton quitGameButton;
+    /**
+     * The {@link JButton} that, when pressed, returns to the main menu.
+     */
+    private final JButton quitGameButton; // TODO: Change this to "main menu" or something potentially less confusing when reworking the pause menu
 
     /**
      * Constructs a new PauseMenuDialogue.
@@ -103,6 +124,7 @@ public class PauseMenuDialogue extends Dialog {
      * message to the console.
      */
     private void onSettings(ActionEvent e) {
+        // TODO: Implement settings menu
         System.out.println("Settings button clicked.");
         // Future functionality can be implemented here.
     }
@@ -112,6 +134,7 @@ public class PauseMenuDialogue extends Dialog {
      * message to the console.
      */
     private void onRestart(ActionEvent e) {
+        // TODO: Implement game restarting
         System.out.println("Restart button clicked.");
         // Future functionality can be implemented here.
     }

@@ -22,6 +22,8 @@ public abstract class MobileEntity extends Entity {
      */
     protected double velocityX;
 
+    // TODO: Create an interface to translate movements along the Cartesian axes
+    // (specifically along the y-axis) to movements along the on-screen axes.
     /**
      * The movement speed of the entity along the y-axis, in pixels per frame.
      * <p>
@@ -78,7 +80,7 @@ public abstract class MobileEntity extends Entity {
      * Uses the Cartesian coordinate system (i.e., -x moves left, +x moves
      * left).
      *
-     * @return The speed.
+     * @param velocityX The movement speed along the x-axis
      */
     public void setVelocityX(double velocityX) {
         this.velocityX = velocityX;
@@ -90,7 +92,7 @@ public abstract class MobileEntity extends Entity {
      * <p>
      * Uses the Cartesian coordinate system (i.e., -y moves down, +x moves up).
      *
-     * @return The speed.
+     * @param velocityY The movement speed along the y-axis
      */
     public void setVelocityY(double velocityY) {
         this.velocityY = velocityY;
@@ -156,16 +158,53 @@ public abstract class MobileEntity extends Entity {
 
     // ----- BUILDER PATTERN -----
     /**
-     * The MobileEntityBuilder class provides a fluent API for constructing an
-     * MobileEntity object.
+     * Abstract builder class for constructing and configuring properties specific
+     * to {@link MobileEntity} instances.
+     * <p>
+     * This builder extends {@link EntityBuilder} to inherit basic properties (like position)
+     * and adds common mobility-related configurations such as speed.
+     * <p>
+     * It uses the **Curiously Recurring Template Pattern (CRTP)** with generic type
+     * {@code T} to ensure that methods return the concrete builder type (e.g.,
+     * {@code PlayerBuilder} or {@code EnemyBuilder}) for method chaining.
+     *
+     * @param <T> The concrete builder class that extends {@code MobileEntityBuilder},
+     * used to enable fluent chaining of methods in subclasses.
      */
     public static class MobileEntityBuilder<T extends MobileEntityBuilder<T>> extends EntityBuilder<T> {
 
         // ----- INSTANCE VARIABLES -----
+        /**
+         * The movement speed of the entity along the x-axis, in pixels per
+         * frame. Defaults to zero (0).
+         * <p>
+         * Uses the Cartesian coordinate system:
+         * <ul>
+         * <li>A negative value moves the entity to the left.</li>
+         * <li>A positive value moves the entity to the right.</li>
+         * </ul>
+         */
         private double velocityX = 0;
+
+        /**
+         * The movement speed of the entity along the y-axis, in pixels per
+         * frame. Defaults to zero (0).
+         * <p>
+         * Uses the Cartesian coordinate system:
+         * <ul>
+         * <li>A negative value moves the entity upwards.</li>
+         * <li>A positive value moves the entity downwards.</li>
+         * </ul>
+         */
         private double velocityY = 0;
 
         // ------ CONSTRUCTORS -----
+        /**
+         * Constructs a new MobileEntityBuilder.
+         *
+         * @param panel The {@link JPanel} that the {@link MobileEntity} will be
+         * drawn on and constrained by.
+         */
         public MobileEntityBuilder(JPanel panel) {
             super(panel);
         }

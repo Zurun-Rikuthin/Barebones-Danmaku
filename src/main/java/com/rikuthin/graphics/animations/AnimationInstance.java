@@ -94,9 +94,9 @@ public class AnimationInstance implements Updateable {
 
     // ----- SETTERS -----
     /**
-     * Sets a new {@AnimationTemplate} and initializes the animation.
+     * Sets a new {@link AnimationTemplate} and initializes the animation.
      * 
-     * @param template
+     * @param template The new template
      */
     public final void setTemplate(final AnimationTemplate template) {
         this.template = template;

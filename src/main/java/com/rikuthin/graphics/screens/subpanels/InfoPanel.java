@@ -25,17 +25,63 @@ import com.rikuthin.utility.ButtonUtils;
  */
 public final class InfoPanel extends Subpanel {
 
+    // ----- INSTANCE VARIABLES -----
+    /**
+     * The {@link JButton} used to pause and resume the game.
+     * <p>
+     * It is configured to call {@link GameManager#onPause(ActionEvent)}.
+     */
     private final JButton pauseButton;
-    private final JLabel waveCounterLabel;
-    private final JLabel gameplayTimerLabel;
-    private final JLabel highscoreLabel;
-    private final JLabel scoreLabel;
-    private final JPanel hpCounterPanel;
-    private final JPanel bombCounterPanel;
-    private final JTextArea infoTextArea;
 
     /**
+     * The {@link JLabel} that displays the current wave number the player is
+     * facing.
+     */
+    private final JLabel waveCounterLabel;
+
+    /**
+     * The {@link JLabel} that displays the formatted elapsed time since the
+     * game started (e.g., HH:MM.SS).
+     */
+    private final JLabel gameplayTimerLabel;
+
+    /**
+     * The {@link JLabel} that displays the current high score achieved by the
+     * player.
+     */
+    private final JLabel highscoreLabel;
+
+    /**
+     * The {@link JLabel} that displays the player's current score in the
+     * ongoing game session.
+     */
+    private final JLabel scoreLabel;
+
+    /**
+     * A {@link JPanel} dedicated to rendering and displaying the player's
+     * current health points (HP).
+     */
+    private final JPanel hpCounterPanel;
+
+    /**
+     * A {@link JPanel} dedicated to rendering and displaying the player's
+     * remaining number of bombs.
+     */
+    private final JPanel bombCounterPanel;
+
+    /**
+     * The multi-line {@link JTextArea} used to display static instructional
+     * information such as game controls and the primary game goal.
+     */
+    private final JTextArea infoTextArea;
+
+    // ----- CONSTRUCTORS -----
+    /**
      * Constructs the InfoPanel.
+     * 
+     * @param width width of the panel in pixels
+     * @param height Height of the panel in pixels
+     * @param backgroundImageFilepath file path of the backgroun image
      */
     public InfoPanel(final int width, final int height, final String backgroundImageFilepath) {
         super(width, height, backgroundImageFilepath);

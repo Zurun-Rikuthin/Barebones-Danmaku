@@ -67,7 +67,7 @@ public class Player extends MobileEntity {
     /**
      * Sets whether the player is firing bullets.
      *
-     * @@param isFiringBullets {@code true} if firing bullets, {@code false}
+     * @param isFiringBullets {@code true} if firing bullets, {@code false}
      * otherwise.
      */
     public void setIsFiringBullets(final boolean isFiringBullets) {
@@ -109,6 +109,10 @@ public class Player extends MobileEntity {
         return Objects.hash(super.hashCode(), bulletSpawner, isFiringBullets);
     }
 
+    /**
+     * Moves the player according to its current velocity and then corrects its
+     * position to ensure it stays within the bounds of the game panel.
+     */
     @Override
     public void move() {
         super.move();
@@ -116,14 +120,28 @@ public class Player extends MobileEntity {
     }
 
     // ----- STATIC BUILDER FOR PLAYER -----
+    /**
+     * Static builder class for creating {@link Player} instances.
+     */
     public static class PlayerBuilder extends MobileEntityBuilder<PlayerBuilder> {
 
         // ----- CONSTRUCTOR -----
+        /**
+         * Constructs a new PlayerBuilder.
+         *
+         * @param panel The {@link JPanel} that the Player will be drawn on and
+         * constrained by.
+         */
         public PlayerBuilder(final JPanel panel) {
             super(panel);
         }
 
         // ----- BUSINESS LOGIC METHODS -----
+        /**
+         * Builds and returns a new {@link Player} instance.
+         *
+         * @return A newly constructed {@link Player} object.
+         */
         public Player build() {
             return new Player(this);
         }

@@ -18,7 +18,6 @@ public class AudioRepository {
 
     //TODO: Figure out a way to rework this thing so that audio clips can be unloaded as needed during runtime to free up memory.
     // Not a major issue right now, but could be if this system get developed into/used for a large enough app.
-
     // ----- STATIC VARIABLES -----
     /**
      * The single instance of the repository, implementing the **Singleton
@@ -64,8 +63,8 @@ public class AudioRepository {
     /**
      * Retrieves a read-only view of all stored {@link Clip} objects.
      *
-     * The map where keys are clip identifiers and values are the {@link Clip}
-     * objects.
+     * @return An immutable copy of a {@link Map} containing all stored
+     * {@link Clip} objects and their unique identifiers.
      */
     public Map<String, Clip> getAllClips() {
         return Collections.unmodifiableMap(STORED_CLIPS);

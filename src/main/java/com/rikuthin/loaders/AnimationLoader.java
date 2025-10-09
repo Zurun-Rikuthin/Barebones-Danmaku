@@ -31,7 +31,8 @@ public class AnimationLoader {
      */
     private static final AnimationTemplateRepository repository = AnimationTemplateRepository.getInstance();
     /**
-     * Base directory where animation image assets are stored, relative to the classpath.
+     * Base directory where animation image assets are stored, relative to the
+     * classpath.
      */
     private static final String ANIMATION_DIRECTORY = "/images/animations/";
     /**
@@ -123,10 +124,6 @@ public class AnimationLoader {
      * <p>
      * This approach allows for easier configuration and extension of animations
      * without modifying source code.
-     *
-     * @throws JsonProcessingException if the configuration file is of an
-     * invalid format
-     * @throws IOException if the configuration file cannot be read
      */
     public static void loadAnimationsFromJson() {
         try {
@@ -214,8 +211,8 @@ public class AnimationLoader {
          * Constructs a validated {@code AnimationConfig} from JSON.
          *
          * @param fileName Name of the sprite sheet file.
-         * @param numGridRows Number of grid rows.
-         * @param numGridColumns Number of grid columns.
+         * @param numRows Number of grid rows.
+         * @param numColumns Number of grid columns.
          * @param frameTimeMultiplier Frame time multiplier (> 0).
          * @param isLooping Whether the animation loops.
          * @throws IllegalArgumentException if any argument is invalid.

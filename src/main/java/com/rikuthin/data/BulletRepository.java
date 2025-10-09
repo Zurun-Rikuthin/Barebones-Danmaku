@@ -17,7 +17,7 @@ import com.rikuthin.managers.GameManager;
  * This class serves as the single source of truth for the game's active bullet
  * population. It protects the integrity of the collection by exposing a
  * read-only view via {@link #getBullets()} and requiring explicit mutation
- * methods (like {@link #addBullet(Bullet))} and {@link #removeIf(Predicate)})
+ * methods (like {@link #addBullet(Bullet)} and {@link #removeIf(Predicate)})
  * for modification.
  */
 public class BulletRepository {
@@ -120,7 +120,7 @@ public class BulletRepository {
     /**
      * Counts the number of stored {@link Bullet} objects.
      *
-     * @return The no. bullets stored.
+     * @return The number of bullets stored.
      */
     public int countBullets() {
         ensureRunning("getBullets");
@@ -130,14 +130,19 @@ public class BulletRepository {
     /**
      * Checks whether the repository is empty (has no elements).
      *
-     * @param methodName {@code true} if there are no elements; otherwise
-     * {@code false}.
+     * @return {@code true} if there are no elements; otherwise {@code false}.
      */
     public boolean isEmpty() {
         return ACTIVE_BULLETS.isEmpty();
     }
 
     // ----- HELPER METHODS -----
+    /**
+     * Checks that the {@link GameManager} is in the {@code RUNNING} state before trying to run a given method.
+     * 
+     * @param methodName The name of the method trying to run while the game is in the wrong state
+     * @throws IllegalStateException if the manager is in the wrong state.
+     */
     // TODO: This likely needs editting too, tho I'll handle it when I rework GameManager
     private void ensureRunning(String methodName) {
         if (!GameManager.getInstance().isRunning()) {
@@ -145,7 +150,7 @@ public class BulletRepository {
             StackFrame caller = walker.walk(frames -> frames.skip(1).findFirst().orElse(null));
 
             throw new IllegalStateException(String.format(
-                    "%s.%s: Cannot call %s() when GameMaager is not in the RUNNING state.",
+                    "%s.%s: Cannot call %s() when GameManager is not in the RUNNING state.",
                     caller != null ? caller.getClassName() : "UnknownClass",
                     caller != null ? caller.getMethodName() : "UnknownMethod",
                     methodName

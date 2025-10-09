@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 import com.rikuthin.entities.Entity;
 import com.rikuthin.entities.MobileEntity;
+import com.rikuthin.entities.enemies.Enemy;
 
 /**
  * Represents a generic bullet that moves within a JPanel.
@@ -48,7 +49,7 @@ public class Bullet extends MobileEntity {
     }
 
     /**
-     * Returns how many points of damage the bullets are dealt to entities this
+     * Returns how many points of damage are dealt to entities this
      * bullet collides with.
      *
      * @return The damage dealt.
@@ -58,6 +59,15 @@ public class Bullet extends MobileEntity {
     }
 
     // ---- SETTERS -----
+    /**
+     * Sets how many points of damage are dealt to entities this
+     * bullet collides with.
+     * <p>
+     * Value cannot be less than zero (0).
+     *
+     * @param damage The damage dealt.
+     * @throws IllegalArgumentException if the value is less than zero (0).
+     */
     public final void setDamage(final int damage) {
         if (damage < 0) {
             throw new IllegalArgumentException(String.format(
@@ -103,14 +113,18 @@ public class Bullet extends MobileEntity {
 
     // ----- STATIC BUILDER FOR BULLET -----
     /**
-     * The BulletBuilder class provides a fluent API for constructing a Bullet
-     * object.
+     * Builder class for constructing and initializing an {@link Bullet} instance.
+     * <p>
+     * This class extends {@code MobileEntityBuilder} by providing functionality unique to bullets,
+     * such as damage dealt and the {@link Entity} that fired the bullet.
      */
     protected static class BulletBuilder extends MobileEntityBuilder<BulletBuilder> {
 
         // ----- INSTANCE VARIABLES -----
         /**
-         * The {@link Entity} that owns/controls the spawner.
+         * The {@link Entity} that fired the bullet.
+         * <p>
+         * To be used to determine who gets credit for dealing damage.
          */
         protected Entity owner = null;
 
@@ -120,6 +134,12 @@ public class Bullet extends MobileEntity {
         protected int damage = 0;
 
         // ------ CONSTRUCTORS -----
+        /**
+        * Builder class for constructing and initializing an {@link Bullet} instance.
+        * 
+        * @param panel The {@link JPanel} that will contain the bullet.
+        * @param owner The {@link Entity} that fired the bullet.
+        */
         public BulletBuilder(final JPanel panel, final Entity owner) {
             super(panel);
 

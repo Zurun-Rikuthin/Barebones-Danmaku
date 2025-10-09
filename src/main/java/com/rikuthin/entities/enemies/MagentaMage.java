@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import javax.swing.JPanel;
 
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Magenta;
+
 import com.rikuthin.entities.bullets.BulletSpawner;
 
 /**
@@ -15,12 +17,14 @@ import com.rikuthin.entities.bullets.BulletSpawner;
  * Magenta Mage.
  */
 public class MagentaMage extends Enemy {
+    // TODO: Redo this ENTIRE class
 
     // ----- CONSTRUCTORS -----
     /**
      * Constructor used to create a MagentaMage instance.
      *
-     * @param builder The {@link EnemyBuilder} used to construct the MagentaMage.
+     * @param builder The {@link EnemyBuilder} used to construct the
+     * MagentaMage.
      */
     public MagentaMage(EnemyBuilder builder) {
         super(builder);
@@ -51,8 +55,8 @@ public class MagentaMage extends Enemy {
      */
     private void setUpMagentaMageBulletSpawner() {
         HashSet<String> magentaMageBulletAnimationKeys = Stream.of(
-            "enemy-bullet"
-            ).collect(Collectors.toCollection(HashSet::new));
+                "enemy-bullet"
+        ).collect(Collectors.toCollection(HashSet::new));
 
         BulletSpawner spawner = new BulletSpawner.BulletSpawnerBuilder(panel, this)
                 .bulletDamage(1)
@@ -64,16 +68,29 @@ public class MagentaMage extends Enemy {
         setBulletSpawner(spawner);
     }
 
-
     // ----- STATIC BUILDER FOR ENEMY -----
+    /**
+     * Static builder class for creating {@link MagentaMage} instances.
+     */
     public static class MagentaMageBuilder extends EnemyBuilder {
 
         // ----- CONSTRUCTOR -----
+        /**
+         * Constructs a new MagentaMageBuilder.
+         *
+         * @param panel The {@link JPanel} that the {@link MagentaMage} will be
+         * drawn on and constrained by.
+         */
         public MagentaMageBuilder(JPanel panel) {
             super(panel);
         }
 
         // ----- OVERRIDDEN METHODS -----
+        /**
+         * Builds and returns a new {@link MagentaMage} instance.
+         *
+         * @return A newly constructed {@link Magenta} object.
+         */
         @Override
         public MagentaMage build() {
             return new MagentaMage(this);

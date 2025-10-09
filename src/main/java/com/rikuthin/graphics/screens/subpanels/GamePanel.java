@@ -17,6 +17,13 @@ import com.rikuthin.managers.GameManager;
 public class GamePanel extends Subpanel {
 
     // ----- CONSTRUCTORS -----
+    /**
+     * Constructor for the GamePanel
+     *
+     * @param width width of the panel in pixels
+     * @param height height of the panel in pixels
+     * @param backgroundImageFilepath file path of the background image
+     */
     public GamePanel(final int width, final int height, final String backgroundImageFilepath) {
         super(width, height, backgroundImageFilepath);
 

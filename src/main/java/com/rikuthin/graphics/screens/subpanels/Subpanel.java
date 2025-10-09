@@ -17,10 +17,25 @@ import com.rikuthin.loaders.ImageLoader;
 public abstract class Subpanel extends JPanel implements Renderable {
 
     // ----- INSTANCE VARIABLES -----
+    /**
+     * The file path of the image used for the background
+     */
     protected String backgroundImageFilepath;
+    /**
+     * The background image
+     */
     protected BufferedImage backgroundImage;
 
     // ----- CONSTRUCTORS -----
+    /**
+     * General constructor to initialise shared fields for various Subpanel
+     * subclasses.
+     *
+     * @param width Width of the panel in pixels
+     * @param height Height of the panel in pixels
+     * @param backgroundImageFilepath The file path of the image used for the
+     * background
+     */
     protected Subpanel(final int width, final int height, final String backgroundImageFilepath) {
         Dimension panelSize = new Dimension(width, height);
         setPreferredSize(panelSize);

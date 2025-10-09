@@ -16,6 +16,8 @@ import com.rikuthin.graphics.GameFrame;
  * Red Mage.
  */
 public class RedMage extends Enemy {
+    // TODO: Redo this ENTIRE class
+
 
     // ----- CONSTRUCTORS -----
     /**
@@ -95,14 +97,28 @@ public class RedMage extends Enemy {
     }
 
     // ----- STATIC BUILDER FOR ENEMY -----
+    /**
+     * Static builder class for creating {@link RedMage} instances.
+     */
     public static class RedMageBuilder extends EnemyBuilder {
 
         // ----- CONSTRUCTOR -----
+        /**
+         * Constructs a new RedMageBuilder.
+         *
+         * @param panel The {@link JPanel} that the {@link RedMage} will be
+         * drawn on and constrained by.
+         */
         public RedMageBuilder(JPanel panel) {
             super(panel);
         }
 
         // ----- OVERRIDDEN METHODS -----
+        /**
+         * Builds and returns a new {@link RedMage} instance.
+         *
+         * @return A newly constructed {@link RedMage} object.
+         */
         @Override
         public RedMage build() {
             return new RedMage(this);

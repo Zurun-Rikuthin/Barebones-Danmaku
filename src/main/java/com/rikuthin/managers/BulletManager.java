@@ -69,26 +69,26 @@ public class BulletManager implements Updateable {
     // }
     // ----- OVERRIDDEN METHODS -----
     /**
-     * The primary game loop method. Updates the bullet system by:
-     * <ol>
-     * <li>Tracking delta time for cooldowns.</li>
-     * <li>Attempting to
-     * {@link #createRandomBullet(Player) create a new bullet}.</li>
-     * <li>Calling the {@link #updateBullets() update logic} for all active
-     * entities.</li>
-     * </ol>
-     *
-     * @throws IllegalStateException If the {@link GameManager} is not in the
-     * {@code RUNNING} state.
+     * Updates the state of the {@code BulletManager}.
+     * <p>
+     * Calls {@link #updateBullets()}, follwed by {@link #cleanupBullets()}.
      */
     @Override
     public void update() {
         ensureRunning("update");
 
         updateBullets();
+        cleanupBullets();
     }
 
     // ----- HELPER METHODS -----
+    /**
+     * Ensures the {@link GameManager} is in the {@code RUNNING} state (i.e., a game is active).
+     * 
+     * @param methodName The name of the method trying to run while the manager is in the wrong state.
+     * @throws IllegalStateException If the {@link GameManager} is not in the
+     * {@code RUNNING} state.
+     */
     private void ensureRunning(String methodName) {
         if (!GameManager.getInstance().isRunning()) {
             StackWalker walker = StackWalker.getInstance();
@@ -104,11 +104,9 @@ public class BulletManager implements Updateable {
     }
 
     /**
-     * Orchestrates the update cycle for all active bullets.
+     * Orchestrates the update cycle for all bullets within the {@link BulletRepository}.
      * <p>
-     * Iterates over the bullet collection to call {@link Bullet#update()} on
-     * each entity, then calls {@link #cleanupBullets()} to remove defeated or
-     * off-screen bullets.
+     * Calls the {@link Bullet#update()} method for each {@link Bullet} instance.
      *
      * @throws IllegalStateException If the {@link GameManager} is not in the
      * {@code RUNNING} state.
@@ -122,17 +120,19 @@ public class BulletManager implements Updateable {
         for (Bullet bullet : activeBullets) {
             bullet.update();
         }
-
-        // Removal is delegated to the repository.
-        cleanupBullets();
     }
 
     /**
-     * Defines the criteria for removing bullets from the collection and
-     * delegates the mutation (removal) task to the repository.
+     * Deletes all bullets matching predefined criteria from storage.
      * <p>
-     * Bullets are removed if they have
-     * {@link Bullet#isFullyOutsidePanel() moved fully off-screen}.
+     * Defines a {@link Predicate} with the following criteria:
+     * <ul>
+     * <li>Bullet is fully off-screen.</li>
+     * </ul>
+     * <p>
+     * This is then passed to {@link BulletRepository#removeIf()}, which removes
+     * any/all bullets matching said criteria from itself.
+     * (Note: Set criteria may be subject to change in future builds/replaced with a better system.)
      */
     private void cleanupBullets() {
         Predicate<Bullet> cleanupFilter = Entity::isFullyOutsidePanel;

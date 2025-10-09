@@ -27,13 +27,45 @@ import static com.rikuthin.utility.ButtonUtils.createButtonWithText;
  */
 public class MainMenuScreen extends Screen {
 
+    // ----- INSTANCE VARIABLES -----
+    /**
+     * The {@code JLabel} displaying the main title of the game. It is placed in
+     * the {@link #titlePanel} and styled using {@link UIConstants#TITLE_FONT}.
+     */
     private final JLabel titleLabel;
+
+    /**
+     * The {@code JPanel} organized with a {@code BoxLayout} (Y_AXIS) that holds
+     * all the main menu option {@code JButton}s.
+     */
     private final JPanel buttonPanel;
+
+    /**
+     * A wrapper {@code JPanel} using {@code FlowLayout} to ensure the
+     * {@link #buttonPanel} is horizontally centered within the screen's layout.
+     */
     private final JPanel centreWrapper;
+
+    /**
+     * The {@code JPanel} responsible for holding the {@link #titleLabel} and
+     * managing the spacing/positioning of the title at the top of the screen.
+     */
     private final JPanel titlePanel;
+
+    /**
+     * The file path {@code String} pointing to the image resource used for the
+     * main menu background.
+     */
     private final String backgroundImageFilepath;
+
+    /**
+     * A transient {@code BufferedImage} object holding the loaded background
+     * image data. It is marked {@code transient} because it is a graphics
+     * resource that shouldn't be serialized.
+     */
     private final transient BufferedImage backgroundImage;
 
+    // ----- CONSTRUCTORS -----
     /**
      * Constructs the main menu screen panel with buttons for starting the game,
      * viewing how to play, settings, high scores, and quitting.
@@ -94,11 +126,29 @@ public class MainMenuScreen extends Screen {
         soundManager.playClip("goblinsDen", true);
     }
 
+    /**
+     * Updates the state of the main menu screen.
+     * <p>
+     * This method is **intentionally empty** (for now) as the main menu is
+     * currently static. A future build however *may* contain animations.
+     * <p>
+     * Also, because {@link Screen} is {@code abstract} and does not define a
+     * default for its own {@link Screen#update()} method, its subclasses are
+     * *required* to define it in *some* manner.
+     */
     @Override
     public void update() {
         // Not needed right now (no animations, button effects, etc.)
     }
 
+    /**
+     * Renders the visual elements of the main menu screen.
+     * <p>
+     * This method is responsible for drawing the background image to fill the
+     * screen before the Swing components (buttons, labels) are drawn on top.
+     *
+     * @param g2d The graphics context used for rendering the background image.
+     */
     @Override
     public void render(Graphics2D g2d) {
         if (backgroundImage != null && g2d != null) {

@@ -168,7 +168,7 @@ public abstract class Entity implements Updateable, Renderable {
     /**
      * Returns the key associated with the current {@link AnimationInstance}.
      *
-     * @return
+     * @return the current animation's key
      */
     public String getCurrentAnimationKey() {
         return currentAnimationKey;
@@ -186,7 +186,7 @@ public abstract class Entity implements Updateable, Renderable {
     /**
      * Returns the current sprite image of the entity.
      *
-     * @return The current sprite of the {@AnimationInstance} as a
+     * @return The current sprite of the {@link AnimationInstance} as a
      * {@link BufferedImage} (if one is set); {@code null} otherwise.
      */
     public BufferedImage getCurrentSprite() {
@@ -274,7 +274,8 @@ public abstract class Entity implements Updateable, Renderable {
     }
 
     /**
-     * Sets the set of keys this entity can query {@link AnimationTemplateRepository} with.
+     * Sets the set of keys this entity can query
+     * {@link AnimationTemplateRepository} with.
      *
      * @param animationKeys The set of animation keys.
      * @throws IllegalArgumentException if, when a non-{@code null} set is
@@ -312,13 +313,14 @@ public abstract class Entity implements Updateable, Renderable {
      * string.
      * <p>
      * Valid strings must be a {@link AnimationTemplate} key within
-     * {@link AnimationTemplateRepository} and must exist within the entity's current key
-     * set.
+     * {@link AnimationTemplateRepository} and must exist within the entity's
+     * current key set.
      *
      * @param key The key identifying the animation.
-     * @throws IllegalAccessException if the provided key (when not
+     * @throws IllegalArgumentException if the provided key (when not
      * {@code null}) is blank, is not within the entity's animation key set, or
-     * does not map to a loaded template within {@link AnimationTemplateRepository}.
+     * does not map to a loaded template within
+     * {@link AnimationTemplateRepository}.
      */
     public final void setAnimation(final String key) throws IllegalArgumentException {
         if (key == null) {
@@ -368,13 +370,20 @@ public abstract class Entity implements Updateable, Renderable {
 
     /**
      * Updates the hitbox dimensions based on the provided {@link Rectangle}.
+     *
+     * @param rectangle The {@link Rectangle} object to create the hitbox from.
      */
     public final void setHitboxFromRectangle(final Rectangle rectangle) {
         hitbox = new Rectangle(rectangle);
     }
 
     /**
-     * Sets the maximum hit points of the entity. Requires a non-negative value.
+     * Sets the maximum hit points of the entity.
+     * <p>
+     * The new value cannot be negative/less than zero (0).
+     *
+     * @param maxHitPoints The new maximum hit points value
+     * @throws IllegalArgumentException if the new value is less than zero (0).
      */
     protected final void setMaxHitPoints(final int maxHitPoints) throws IllegalArgumentException {
         if (maxHitPoints < 0) {
@@ -387,8 +396,14 @@ public abstract class Entity implements Updateable, Renderable {
     }
 
     /**
-     * Sets the current hit points of the entity. Requires a non-negative value
-     * less than or equal to the maximum value.
+     * Sets the current hit points of the entity.
+     * <p>
+     * The new value must fall within the (endpoint-inclusive) range of zero (0)
+     * to the entity's current maximum hit point value.
+     *
+     * @param currentHitPoints The new current hit points.
+     * @throws IllegalArgumentException if the new is outside the accepted
+     * range.
      */
     protected final void setCurrentHitPoints(final int currentHitPoints) throws IllegalArgumentException {
         if (currentHitPoints < 0) {
@@ -410,9 +425,10 @@ public abstract class Entity implements Updateable, Renderable {
 
     // ----- BUSINESS LOGIC METHODS -----
     /**
-     * Determines if the entity is fully within the bounds of the panel.
+     * Determines if the {@code Entity} is fully within the bounds of the
+     * {@link JPanel}.
      *
-     * @return {@code true} if the entity is fully within the panel,
+     * @return {@code true} if the {@code Entity} is fully within the {@link JPanel},
      * {@code false} otherwise.
      */
     public boolean isFullyWithinPanel() {
@@ -422,9 +438,10 @@ public abstract class Entity implements Updateable, Renderable {
     }
 
     /**
-     * Determines if the entity is fully outside the bounds of the panel.
+     * Determines if the {@code Entity} is fully outside the bounds of the
+     * panel.
      *
-     * @return {@code true} if the entity is fully outside the panel,
+     * @return {@code true} if the {@code Entity} is fully outside the panel,
      * {@code false} otherwise.
      */
     public boolean isFullyOutsidePanel() {
@@ -436,7 +453,7 @@ public abstract class Entity implements Updateable, Renderable {
     /**
      * Checks if the entity collides with a given rectanglular space.
      *
-     * @param rectangle The {@link rectangle} to check for intersection.
+     * @param rectangle The {@link Rectangle} to check for intersection.
      * @return {@code true} if the entity collides with the rectangle,
      * {@code false} otherwise.
      */
@@ -447,7 +464,7 @@ public abstract class Entity implements Updateable, Renderable {
     /**
      * Checks if the entity collides with another entity.
      *
-     * @param entity The other entity to check for collision.
+     * @param entity The other {@code Entity} to check for collision.
      * @return {@code true} if the two entities collide, {@code false}
      * otherwise.
      */
@@ -461,7 +478,8 @@ public abstract class Entity implements Updateable, Renderable {
      *
      * @param key The new animation key.
      * @throws IllegalArgumentException if a {@code null} or blank key is
-     * passed, or the key doesn't exist in {@link AnimationTemplateRepository}'s key set.
+     * passed, or the key doesn't exist in {@link AnimationTemplateRepository}'s
+     * key set.
      */
     public void addAnimationKey(final String key) throws IllegalArgumentException {
         if (key == null || key.isBlank()) {
@@ -481,6 +499,8 @@ public abstract class Entity implements Updateable, Renderable {
 
     /**
      * Returns the central coordinates of the entity's sprite.
+     * 
+     * @return The centre coordinates
      */
     public Point getCentreCoordinates() {
         return new Point(
@@ -573,8 +593,15 @@ public abstract class Entity implements Updateable, Renderable {
 
     // ----- BUILDER PATTERN -----
     /**
-     * The EntityBuilder class provides a fluent API for constructing an Entity
-     * object.
+     * Abstract builder class for constructing and configuring properties specific
+     * to {@link Entity} instances.
+     * <p>
+     * It uses the **Curiously Recurring Template Pattern (CRTP)** with generic type
+     * {@code T} to ensure that methods return the concrete builder type for method
+     * chaining.
+     *
+     * @param <T> The concrete builder class that extends {@code EntityBuilder},
+     * used to enable fluent chaining of methods in subclasses.
      */
     public static class EntityBuilder<T extends EntityBuilder<T>> {
 
@@ -623,8 +650,8 @@ public abstract class Entity implements Updateable, Renderable {
         }
 
         /**
-         * Sets the set of keys this entity can query {@link AnimationTemplateRepository}
-         * with.
+         * Sets the set of keys this entity can query
+         * {@link AnimationTemplateRepository} with.
          *
          * @param animationKeys The set of animation keys.
          * @return The builder instance.
@@ -691,6 +718,15 @@ public abstract class Entity implements Updateable, Renderable {
         }
 
         // ----- HELPER METHODS -----
+        /**
+         * Returns a reference to the current builder instance, cast to the generic
+         * type {@code T}.
+         * <p>
+         * This method allows subclasses to return their specific type when
+         * calling methods defined in the superclass.
+         *
+         * @return The current builder instance, cast to type {@code T}.
+         */
         @SuppressWarnings("unchecked")
         protected T self() {
             // cast to the generic type, ensures correct builder is returned

@@ -130,7 +130,7 @@ public class EnemyRepository {
     /**
      * Checks whether the repository is empty (has no elements).
      *
-     * @param methodName {@code true} if there are no elements; otherwise
+     * @return {@code true} if there are no elements; otherwise
      * {@code false}.
      */
     public boolean isEmpty() {
@@ -139,6 +139,9 @@ public class EnemyRepository {
 
     // ----- HELPER METHODS -----
     // TODO: This likely needs editting too, tho I'll handle it when I rework GameManager
+    /**
+     * Checks whether the {@link GameManager} is fully initialised before executing a method that requires said complete initialisation.
+     */
     private void ensureRunning(String methodName) {
         if (!GameManager.getInstance().isRunning()) {
             StackWalker walker = StackWalker.getInstance();

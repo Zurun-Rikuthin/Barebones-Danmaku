@@ -146,6 +146,8 @@ public class BulletSpawner extends Entity {
     /**
      * Returns the number of pixels along the x-axis that a spawned
      * {@link Bullet} will move per frame.
+     * 
+     * @return the bullet's velocity along the x-axis
      */
     public double getBulletVelocityX() {
         return bulletVelocityX;
@@ -154,6 +156,8 @@ public class BulletSpawner extends Entity {
     /**
      * Returns the number of pixels along the y-axis that a spawned
      * {@link Bullet} will move per frame.
+     * 
+     * @return the bullet's velocity along the y-axis
      */
     public double getBulletVelocityY() {
         return bulletVelocityY;
@@ -161,7 +165,7 @@ public class BulletSpawner extends Entity {
 
     /**
      * Returns the set of keys this spawner can use to query
-     * {@link Animation Instance} for an {@link AnimationTemplate}.
+     * {@link AnimationInstance} for an {@link AnimationTemplate}.
      *
      * @return The set of bullet animation keys.
      */
@@ -181,6 +185,11 @@ public class BulletSpawner extends Entity {
     }
 
     // ---- SETTERS -----
+    /**
+         * Sets the amount of damage that bullets created by this spawner should deal upon impact.
+         *
+         * @param bulletDamage The amount of damage.
+         */
     public final void setBulletDamage(final int bulletDamage) {
         if (bulletDamage < 0) {
             throw new IllegalArgumentException(String.format(
@@ -264,7 +273,7 @@ public class BulletSpawner extends Entity {
      * set.
      *
      * @param key The key identifying the animation.
-     * @throws IllegalAccessException if the provided key (when not
+     * @throws IllegalArgumentException if the provided key (when not
      * {@code null}) is blank, is not within the entity's animation key set, or
      * does not map to a loaded template within {@link AnimationTemplateRepository}.
      */
@@ -301,6 +310,12 @@ public class BulletSpawner extends Entity {
     }
 
     // ----- BUSINESS LOGIC METHODS -----
+    /**
+     * Returns the width and height (in pixels) of the first sprite in the bullet's animation as a {@link Dimension} object.
+     * 
+     * @return A {@link Dimension} object representing the sprite's dimensions.
+     */
+    // TODO: Rework this
     public Dimension getBulletSpriteDimensions() {
         if (currentAnimationKey == null) {
             return new Dimension(0, 0);
@@ -327,7 +342,7 @@ public class BulletSpawner extends Entity {
     }
 
     /**
-     * Stops the spawning of {@link bullet} instances.
+     * Stops the spawning of {@link Bullet} instances.
      */
     public void stop() {
         isSpawning = false;
@@ -336,8 +351,7 @@ public class BulletSpawner extends Entity {
     /**
      * Spawns a new {@link Bullet} instance using the current stored values.
      * <p>
-     * Following creation, the new bullet is additionally added to the
-     * BulletManager's managed list of bullets.
+     * The new bullet is also automatically added to the {@link BulletRepository}.
      *
      * @return the newly created bullet.
      */
@@ -466,6 +480,12 @@ public class BulletSpawner extends Entity {
         protected String currentBulletAnimationKey = null;
 
         // ------ CONSTRUCTORS -----
+        /**
+         * Constructs a new BulletSpawnerBuilder to create a {@link BulletSpawner} instance.
+         * 
+         * @param panel The {@link JPanel} the spawner with eventually live in/be contained by.
+         * @param owner The {@link Entity} that will eventually control the created spawner.
+         */
         public BulletSpawnerBuilder(final JPanel panel, final Entity owner) {
             super(panel);
 
@@ -480,6 +500,12 @@ public class BulletSpawner extends Entity {
         }
 
         // ---- SETTERS -----
+        /**
+         * Sets the amount of damage that bullets created by this spawner should deal upon impact.
+         *
+         * @param bulletDamage The amount of damage.
+         * @return The updated {@code BulletSpawnerBuilder} with the new parameter configured.
+         */
         public BulletSpawnerBuilder bulletDamage(final int bulletDamage) {
             this.bulletDamage = bulletDamage;
             return this;
@@ -490,6 +516,7 @@ public class BulletSpawner extends Entity {
          *
          * @param isSpawning {@code true} if creating bullets, {@code false}
          * otherwise.
+         * @return The updated {@code BulletSpawnerBuilder} with the new parameter configured.
          */
         public BulletSpawnerBuilder isSpawning(final boolean isSpawning) {
             this.isSpawning = isSpawning;
@@ -501,6 +528,7 @@ public class BulletSpawner extends Entity {
          * per frame.
          *
          * @param bulletVelocityX The bullet's x-axis velocity.
+         * @return The updated {@code BulletSpawnerBuilder} with the new parameter configured.
          */
         public BulletSpawnerBuilder bulletVelocityX(final double bulletVelocityX) {
             this.bulletVelocityX = bulletVelocityX;
@@ -512,6 +540,7 @@ public class BulletSpawner extends Entity {
          * per frame.
          *
          * @param bulletVelocityY The bullet's y-axis velocity.
+         * @return The updated {@code BulletSpawnerBuilder} with the new parameter configured.
          */
         public BulletSpawnerBuilder bulletVelocityY(final double bulletVelocityY) {
             this.bulletVelocityY = bulletVelocityY;
@@ -523,6 +552,7 @@ public class BulletSpawner extends Entity {
          * with.
          *
          * @param bulletAnimationKeys The set of animation keys.
+         * @return The updated {@code BulletSpawnerBuilder} with the new parameter configured.
          */
         public final BulletSpawnerBuilder bulletAnimationKeys(final Set<String> bulletAnimationKeys) {
             this.bulletAnimationKeys = (bulletAnimationKeys == null) ? new HashSet<>() : new HashSet<>(bulletAnimationKeys);
@@ -539,7 +569,8 @@ public class BulletSpawner extends Entity {
          * {@link AnimationTemplateRepository} and must exist within the entity's current
          * key set.
          *
-         * @param key The key identifying the animation.
+         * @param key The unique key identifying the animation.
+         * @return The updated {@code BulletSpawnerBuilder} with the new parameter configured.
          */
         public final BulletSpawnerBuilder currentBulletAnimationKey(String key) {
             this.currentBulletAnimationKey = key;

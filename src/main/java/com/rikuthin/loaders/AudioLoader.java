@@ -164,7 +164,7 @@ public class AudioLoader {
     /**
      * Loads a list of all supported audio files from the sounds directory.
      *
-     * * @return A list of file names (e.g., "music.wav", "hit.wav"), or an
+     * @return A list of file names (e.g., "music.wav", "hit.wav"), or an
      * empty list if an error occurs.
      */
     public List<String> getAudioFiles() {

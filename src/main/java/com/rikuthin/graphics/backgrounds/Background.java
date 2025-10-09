@@ -45,7 +45,6 @@ public class Background {
     /**
      * Constructs a new InfiniteScrollingBackground object.
      *
-     * @param panel The parent JPanel of the background.
      * @param imageFilepath The path to the image file.
      * @param x The fixed x coordinate of the images.
      * @param y The initial y coordinate of the first image.

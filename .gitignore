@@ -10,13 +10,12 @@
 *.rar
 
 # Generated build directories
-/target/
+/target/*
+# EXCLUSION: Keep Maven Javadocs for documentation purposes
+!/target/reports/
+!/target/reports/apidocs/
 /bin/
 /out/
-
-# EXCLUSIONS: Keep Maven Javadocs for documentation purposes
-!/target/site/
-!/target/*-javadoc.jar
 
 # Log files and application data
 *.log
@@ -26,6 +25,7 @@
 # JVM crash logs
 hs_err_pid*
 replay_pid*
+
 
 ### Maven Specific ###
 pom.xml.tag
@@ -38,6 +38,7 @@ buildNumber.properties
 .mvn/timing.properties
 # Maven wrapper binary (keep the script, ignore the jar)
 .mvn/wrapper/maven-wrapper.jar
+
 
 ### Configuration and Environment ###
 # Local environment and secret files
@@ -73,13 +74,17 @@ secrets.*
 *.vsix
 .ionide
 
+
 ### OS and Editor Artifacts (Generic) ###
 # macOS metadata files
 .DS_Store
+
 # Windows thumbnail cache files
 Thumbs.db
+
 # Generic temporary files created by various editors
 *~
+
 #*#
 *.swp
 *.swo

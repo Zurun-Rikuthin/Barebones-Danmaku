@@ -19,8 +19,13 @@ import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.graphics.screens.subpanels.InfoPanel;
 import com.rikuthin.interfaces.Updateable;
 
+/**
+ * A manager class (that got way out of control) to manager the entire game.
+ * DESPERATELY NEED REFACTORING.
+ */
 public class GameManager implements Updateable {
 
+    // TODO: REFACTOR THIS ENTIRE FREAKIN' GOD CLASS!
     // ----- ENUMERATORS -----
     /**
      * Enum representing the possible game states.
@@ -135,6 +140,11 @@ public class GameManager implements Updateable {
         return instance;
     }
 
+    /**
+     * Returns the stored reference to the {@link GamePanel}
+     * 
+     * @return the reference to {@link GamePanel}
+     */
     public GamePanel getGamePanel() {
         return gamePanel;
     }
@@ -149,11 +159,21 @@ public class GameManager implements Updateable {
         return player;
     }
 
+    /**
+     * Returns the stored reference to the {@link EnemyManager}
+     * 
+     * @return the reference to {@link EnemyManager}
+     */
     public EnemyManager getEnemyManager() {
         ensureRunning("getEnemyManager");
         return enemyManager;
     }
 
+    /**
+     * Returns the stored reference to the {@link BulletManager}
+     * 
+     * @return the reference to {@link BulletManager}
+     */
     public BulletManager getBulletManager() {
         ensureRunning("getBulletManager");
         return bulletManager;
@@ -267,6 +287,14 @@ public class GameManager implements Updateable {
     }
 
     // ----- HELPER METHODS -----
+    /**
+     * Checks if the GameManager has been fully initialised.
+     * <p>
+     * This method is used by other classes to prevent the execution of certain actions before the GameManager has finished initialising.
+     * It also provides traceback in the console to the offending class and method for easier debugging.
+     * 
+     * @param methodName
+     */
     private void ensureInitialized(String methodName) {
         if (currentState == GameState.NOT_INITIALIZED || currentState == GameState.INITIALIZING) {
             StackWalker walker = StackWalker.getInstance();

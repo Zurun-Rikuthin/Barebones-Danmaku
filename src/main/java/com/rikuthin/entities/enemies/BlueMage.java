@@ -16,7 +16,8 @@ import com.rikuthin.graphics.GameFrame;
  * Blue Mage.
  */
 public class BlueMage extends Enemy {
-
+    // TODO: Redo this ENTIRE class
+    
     // ----- CONSTRUCTORS -----
     /**
      * Constructor used to create a BlueMage instance.
@@ -96,14 +97,28 @@ public class BlueMage extends Enemy {
     }
 
     // ----- STATIC BUILDER FOR ENEMY -----
+    /**
+     * Static builder class for constructing and initializing a {@link BlueMage} instance.
+     */
     public static class BlueMageBuilder extends EnemyBuilder {
 
         // ----- CONSTRUCTOR -----
+        /**
+         * Constructs a new BlueBuilder.
+         *
+         * @param panel The {@link JPanel} that the {@link BlueMage} will be
+         * drawn on and constrained by.
+         */
         public BlueMageBuilder(JPanel panel) {
             super(panel);
         }
 
         // ----- OVERRIDDEN METHODS -----
+        /**
+         * Builds and returns a new {@link BlueMage} instance.
+         *
+         * @return A newly constructed {@link BlueMage} object.
+         */
         @Override
         public BlueMage build() {
             return new BlueMage(this);

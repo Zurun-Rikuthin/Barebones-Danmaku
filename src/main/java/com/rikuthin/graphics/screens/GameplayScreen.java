@@ -21,12 +21,32 @@ import com.rikuthin.managers.GameManager;
 public final class GameplayScreen extends Screen {
 
     // ----- STATIC VARIABLES -----
+    /**
+     * The default player movement speed in pixels/frame
+     */
     private static final int BASE_SPEED = 5;
 
     // INSTANCE VARIABLES -----
+    /**
+     * Reference to the {@link GameManager}
+     */
     private final transient GameManager gameManager;
+    /**
+     * Reference to the {@link GamePanel}
+     */
     private final GamePanel gamePanel;
+    /**
+     * Reference to the {@link InfoPanel}
+     */
     private final InfoPanel infoPanel;
+    /**
+     * A {@link Map} used to track the current state of keys pressed by the
+     * user.
+     * <p>
+     * The key is the {@code Integer} key code (from {@link KeyEvent}), and the
+     * value is a {@code Boolean} indicating if the key is currently held down
+     * ({@code true}) or released ({@code false}).
+     */
     private final Map<Integer, Boolean> keyStates;
 
     // ----- CONSTRUCTORS -----

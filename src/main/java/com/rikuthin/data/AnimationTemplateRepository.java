@@ -18,7 +18,6 @@ public class AnimationTemplateRepository {
 
     //TODO: Figure out a way to rework this thing so that animations can be unloaded as needed during runtime to free up memory.
     // Not a major issue right now, but could be if this system get developed into/used for a large enough app.
-
     // ----- STATIC VARIABLES -----
     /**
      * The single instance of the repository, implementing the **Singleton
@@ -67,8 +66,8 @@ public class AnimationTemplateRepository {
      * Retrieves a read-only view of all stored {@link AnimationTemplate}
      * objects.
      *
-     * The map where keys are animation identifiers and values are the
-     * {@link AnimationTemplate} objects.
+     * @return An immutable copy of {@link Map} containing stored
+     * {@link AnimationTemplate} objects and their unique identifiers.
      */
     public Map<String, AnimationTemplate> getAllAnimations() {
         return Collections.unmodifiableMap(STORED_ANIMATION_TEMPLATES);
@@ -76,8 +75,8 @@ public class AnimationTemplateRepository {
 
     // ----- BUSINESS LOGIC METHODS -----
     /**
-     * Adds a new {@link AnimationTemplate} object to the repository, but only if one
-     * with given key does not already exist.
+     * Adds a new {@link AnimationTemplate} object to the repository, but only
+     * if one with given key does not already exist.
      *
      * @param key The unique identifier for the animation.
      * @param animation The {@link AnimationTemplate} object to store.

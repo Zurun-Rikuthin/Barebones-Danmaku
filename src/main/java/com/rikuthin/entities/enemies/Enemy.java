@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import javax.swing.JPanel;
 
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Magenta;
+
 import com.rikuthin.entities.MobileEntity;
 import com.rikuthin.entities.bullets.Bullet;
 import com.rikuthin.entities.bullets.BulletSpawner;
@@ -154,7 +156,7 @@ public class Enemy extends MobileEntity {
      * Updates the x and y velocities of new bullets to aim towards the given
      * target coordinates.
      *
-     * @param target
+     * @param target The (x, y) coordinates on-screen the Enemy should aim towards.
      */
     public void setTarget(final Point target) {
         if (target == null || bulletSpawner == null) {
@@ -331,14 +333,32 @@ public class Enemy extends MobileEntity {
     }
 
     // ----- STATIC BUILDER FOR ENEMY -----
+    /**
+     * Static builder class for constructing and initializing an {@link Enemy} instance.
+     * <p>
+     * This class extends {@code MobileEntityBuilder} to inherit common configuration
+     * options (position, speed, size) and provides a type-safe way to configure
+     * an enemy before building it.
+     */
     public static class EnemyBuilder extends MobileEntityBuilder<EnemyBuilder> {
 
         // ----- CONSTRUCTOR -----
+        /**
+         * Constructs a new EnemyBuilder.
+         *
+         * @param panel The {@link JPanel} that the {@link Enemy} will be
+         * drawn on and constrained by.
+         */
         public EnemyBuilder(JPanel panel) {
             super(panel);
         }
 
         // ----- BUSINESS LOGIC METHODS -----
+        /**
+         * Builds and returns a new {@link Enemy} instance.
+         *
+         * @return A newly constructed {@link Enemy} object.
+         */
         public Enemy build() {
             return new Enemy(this);
         }

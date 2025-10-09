@@ -13,6 +13,9 @@ import com.rikuthin.graphics.screens.Screen;
 import com.rikuthin.loaders.AnimationLoader;
 import com.rikuthin.loaders.AudioLoader;
 
+/**
+ * The main window that renders the entire app.
+ */
 public final class GameFrame extends JFrame {
 
     // ----- STATIC VARIABLES -----
@@ -26,23 +29,44 @@ public final class GameFrame extends JFrame {
     public static final int FRAME_HEIGHT = 720;
 
     // ----- INSTANCE VARIABLES -----
+    /**
+     * The {@link Timer} responsible for triggering the main game loop updates
+     * and repaints. This controls the frame rate and central timing mechanism
+     * of the game.
+     */
     private final Timer gameLoopTimer;
+    /**
+     * A transient {@link BufferedImage} used as an off-screen drawing surface
+     * (back buffer) for **double buffering**. All game rendering is performed
+     * onto this image first, which is then quickly copied to the screen to
+     * prevent flickering.
+     */
     private final transient BufferedImage backBuffer;
+    /**
+     * A transient reference to the {@link Graphics2D} context used for
+     * high-quality drawing operations (like rendering onto the back buffer).
+     * <p>
+     * It is marked {@code transient} because it is a short-lived resource
+     * derived from the drawing surface, and cannot be reliably serialized
+     * (saved/loaded).
+     */
     private transient Graphics2D g2d;
+    /**
+     * The current {@link Screen} being displayed by the window.
+     */
     private Screen currentScreen;
 
     // ----- CONSTRUCTORS -----
     /**
-     * Constructor to initialize the game frame, set the size, title, and add
-     * the main menu and gameplay panels. Also initializes the GameManager
-     * instance and sets the blaster and bubble panels.
+     * Constructor to initialize the GameFrame/app window.
+     * <p>
+     * Sets the current {@link Screen} to the {@link MainMenuScreen}.
      */
     public GameFrame() {
         AnimationLoader.loadAnimationsFromJson();
         AudioLoader.loadAudioFromJson();
 
         // TODO: Rework loading order
-
         setTitle("<Untitled Danmaku>");
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setResizable(false);
@@ -121,7 +145,7 @@ public final class GameFrame extends JFrame {
     }
 
     /**
-     * Stops game loop.
+     * Stops the game loop.
      */
     public void stopGameLoop() {
         gameLoopTimer.stop();

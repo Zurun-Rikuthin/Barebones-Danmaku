@@ -10,10 +10,7 @@
 *.rar
 
 # Generated build directories
-/target/*
-# EXCLUSION: Keep Maven Javadocs for documentation purposes
-!/target/reports/
-!/target/reports/apidocs/
+/target/
 /bin/
 /out/
 

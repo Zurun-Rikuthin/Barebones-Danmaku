@@ -6,7 +6,7 @@ import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.dialogue.PauseMenuDialogue;
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.graphics.screens.subpanels.InfoPanel;
-import com.rikuthin.services.core.GameStateManager;
+import com.rikuthin.services.core.states.GameStateContext;
 
 /**
  * Manages all game-related UI components, panels, and dialogues.
@@ -15,7 +15,7 @@ import com.rikuthin.services.core.GameStateManager;
 public class GameUIManager {
 
     // ----- INSTANCE VARIABLES -----
-    private final GameStateManager stateManager;
+    private final GameStateContext stateManager;
     private GamePanel gamePanel;
     private InfoPanel infoPanel;
 
@@ -25,7 +25,7 @@ public class GameUIManager {
      * Constructs the GameUIManager, requiring a dependency on GameStateManager.
      * @param stateManager The state management instance.
      */
-    public GameUIManager(GameStateManager stateManager) {
+    public GameUIManager(GameStateContext stateManager) {
         this.stateManager = stateManager;
     }
 

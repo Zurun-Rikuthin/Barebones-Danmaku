@@ -17,7 +17,8 @@ import com.rikuthin.graphics.GameFrame;
 import com.rikuthin.graphics.screens.subpanels.GamePanel;
 import com.rikuthin.graphics.screens.subpanels.InfoPanel;
 import com.rikuthin.interfaces.Updateable;
-import com.rikuthin.services.core.GameStateManager.GameState;
+import com.rikuthin.services.core.states.GameStateContext;
+import com.rikuthin.services.core.states.GameStateContext.GameState;
 import com.rikuthin.services.entity.BulletManager;
 import com.rikuthin.services.entity.EnemyManager;
 import com.rikuthin.services.ui.GameUIManager;
@@ -32,7 +33,7 @@ public final class GameLoopCordinator implements Updateable {
     private static GameLoopCordinator INSTANCE;
 
     // ----- DEPENDENCIES & INSTANCE VARIABLES -----
-    private final GameStateManager stateManager;
+    private final GameStateContext stateManager;
     private final EnemyManager enemyManager;
     private final BulletManager bulletManager;
     private final GameUIManager uiManager;
@@ -46,7 +47,7 @@ public final class GameLoopCordinator implements Updateable {
      */
     private GameLoopCordinator() {
         // Instantiate specialized managers
-        this.stateManager = new GameStateManager();
+        this.stateManager = new GameStateContext();
         this.enemyManager = new EnemyManager();
         this.bulletManager = new BulletManager();
         this.uiManager = new GameUIManager(this.stateManager); // Inject GameStateManager dependency

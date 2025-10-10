@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Added some minor notes to this as it's my first time working with this Log4j2. -->
-
 <Configuration status="warn">
 	<Properties>
+		<!-- Standard console output format (time, thread, level, logger name, message) -->
 		<Property name="CONSOLE_LAYOUT">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+		
+		<!-- Standard file output format (date/time, level, logger name, message) -->
 		<Property name="FILE_LAYOUT">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</Property>
 	</Properties>
 	
 	<Appenders>
+		<!-- Console Appender: Sends output to the console for immediate viewing -->
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout pattern="${CONSOLE_LAYOUT}" />
 		</Console>
 		
-		<!-- Write the logs to a file for later access/troubleshooting. Once the file size reaches 10MB, compress it then create a new log file. -->
+		<!-- RollingFile Appender: Writes logs to a file and rolls them over (compresses them) based on size (10MB) -->
 		<RollingFile name="RollingFile" fileName="logs/log4j2/app.log" filePattern="logs/log4j2/app-%d{MM-dd-yyyy}-%i.log.gz">
 			<PatternLayout pattern="${FILE_LAYOUT}" />
 			<Policies>
@@ -24,22 +26,19 @@
 	</Appenders>
 	
 	<Loggers>
-		<!-- The root logger is the default/parent logger for the entire app. -->
+		<!-- The root logger is the default/parent logger for the entire app. All loggers default to this level unless overridden. -->
 		<Root level="INFO">
-			<!--
-				Denotes WHERE the log messages that pass the filter are sent. 
-				In this case, using the root logger sends it both to the console for immediate viewing and to a file for records.
-			-->
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFile" />
 		</Root>
 		
-		<!-- Temp example loggers (will expand/fix later as needed as I refactor)
-		<Logger name="com.rikuthin.graphics" level="DEBUG" additivity="true"></Logger>
+		<!-- Game Core Services: Log at DEBUG to see state transitions and main flow events. -->
+		<Logger name="com.rikuthin.services.core" level="DEBUG" additivity="true" />
 		
-		<Logger name="org.apache.logging" level="WARN" additivity="false">
-			<AppenderRef ref="Console" />
-		</Logger>
-		-->
+		<!-- Entity/Update Services: Log at TRACE to capture per-frame updates, movement, and detailed entity lifecycle events. -->
+		<Logger name="com.rikuthin.services.entity" level="TRACE" additivity="true" />
+		
+		<!-- Data/Asset Loading: Log at DEBUG to see confirmation of all file loading and resource registration. -->
+		<Logger name="com.rikuthin.data.assets" level="DEBUG" additivity="true" />
 	</Loggers>
 </Configuration>

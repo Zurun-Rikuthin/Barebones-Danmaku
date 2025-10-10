@@ -67,7 +67,7 @@ public final class GameFrame extends JFrame {
         AudioLoader.loadAudioFromJson();
 
         // TODO: Rework loading order
-        setTitle("<Untitled Danmaku>");
+        setTitle("<Barebones Danmaku>");
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
